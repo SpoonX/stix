@@ -25,7 +25,7 @@
   "scripts": {
     "build": "tsc --build tsconfig.json",
     "dev": "tsc --build -w tsconfig.json",
-    "prepublish": "yarn build",
+    "prepare": "yarn build",
     "version": "conventional-changelog -p angular -i doc/CHANGELOG.md -s && git add -A doc/CHANGELOG.md",
     "postpublish": "git push upstream master && git push upstream --tags"
   },
