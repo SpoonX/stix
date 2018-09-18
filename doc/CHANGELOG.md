@@ -1,3 +1,13 @@
+<a name="0.2.1"></a>
+## [0.2.1](https://github.com/SpoonX/stix/compare/v0.2.0...v0.2.1) (2018-09-18)
+
+
+### Bug Fixes
+
+* **middleware:** fix Middleware typing ([4dce743](https://github.com/SpoonX/stix/commit/4dce743))
+
+
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/SpoonX/stix/compare/v0.1.3...v0.2.0) (2018-09-18)
 
