@@ -16,7 +16,7 @@ export abstract class Response {
 
   protected message: string;
 
-  constructor ({ message, data, meta, statusCode }: ResponseArgumentsInterface) {
+  protected constructor ({ message, data, meta, statusCode }: ResponseArgumentsInterface) {
     this.data       = data;
     this.meta       = meta;
     this.message    = message;
