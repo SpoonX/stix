@@ -12,9 +12,9 @@ export const DEFAULT_PORT: number = 1991;
 export class Server {
   private server: Koa;
 
-  private config: ServerConfigInterface;
+  private readonly config: ServerConfigInterface;
 
-  private application: Application;
+  private readonly application: Application;
 
   constructor (application: Application, config: ServerConfigInterface = {}) {
     this.application = application;

@@ -20,7 +20,7 @@ import {
 const debug = createDebugLogger('application');
 
 export class Application {
-  private config: Config;
+  private readonly config: Config;
 
   private logger: winston.Logger;
 
