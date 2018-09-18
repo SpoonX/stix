@@ -1,7 +1,7 @@
 import { Middleware } from 'koa';
 import { ContextInterface, Application, InvalidActionResultError, Response } from '../Library';
 
-export default (app: Application): Middleware => async function dispatch (ctx: ContextInterface, next: Function) {
+export default (app: Application) => async function dispatch (ctx: ContextInterface, next: Function) {
   // Dispatch needs to be the last middleware to run.
   // This leaves space for module-land and user-land middleware to run first.
   await next();

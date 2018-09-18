@@ -5,7 +5,7 @@ import createDebugLogger from '../debug';
 
 const debug = createDebugLogger('middleware:router');
 
-export default (app: Application): Middleware => async function router (ctx: ContextInterface, next: Function) {
+export default (app: Application) => async function router (ctx: ContextInterface, next: Function) {
   debug(`Routing for path "${ctx.path}".`);
 
   const method = ctx.method === RequestMethods.Head ? RequestMethods.Get : ctx.method;
