@@ -1,3 +1,13 @@
+<a name="0.1.0"></a>
+# [0.1.0](https://github.com/SpoonX/stix/compare/v0.0.4...v0.1.0) (2018-09-18)
+
+
+### Features
+
+* **Controller:** expose ControllerType ([9de95c8](https://github.com/SpoonX/stix/commit/9de95c8))
+
+
+
 <a name="0.0.4"></a>
 ## [0.0.4](https://github.com/SpoonX/stix/compare/v0.0.3...v0.0.4) (2018-09-18)
 
