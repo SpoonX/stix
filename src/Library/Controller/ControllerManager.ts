@@ -1,14 +1,14 @@
 import fs from 'fs';
 import path from 'path';
 import { ControllerManagerConfigInterface } from '../Config';
-import { ControllerInterface } from './ControllerInterface';
+import { ControllerInterface, ControllerType } from '.';
 
 export class ControllerManager {
   private controllers: { [controllerName: string]: Object } = {};
 
   private config: ControllerManagerConfigInterface;
 
-  public static getControllerName(controller: string | ControllerInterface): string {
+  public static getControllerName(controller: ControllerType): string {
     if (typeof controller === 'string') {
       return controller;
     }
@@ -47,7 +47,7 @@ export class ControllerManager {
       this.registerControllers(controllers);
   }
 
-  public getController(controller: string | ControllerInterface): Object {
+  public getController(controller: ControllerType): Object {
     return this.controllers[ControllerManager.getControllerName(controller)];
   }
 
