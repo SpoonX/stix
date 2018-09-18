@@ -1,4 +1,4 @@
-import { RequestMethods } from '../Server/RequestMethods';
+import { RequestMethods } from '../Server';
 
 export interface RouteInterface {
   method: RequestMethods;

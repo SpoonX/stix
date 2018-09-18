@@ -1,4 +1,4 @@
-import { RequestMethods } from '../Server/RequestMethods';
+import { RequestMethods } from '../Server';
 
 export class Route {
   public static method(method: string, route: string, controller: string | { new() : Object }, action: string): {} {

@@ -1,8 +1,8 @@
 import pathToRegexp, { Key } from 'path-to-regexp';
-import { RequestMethods } from '../Server/RequestMethods';
+import { RequestMethods } from '../Server';
 import { RegisteredRouteInterface } from './RegisteredRouteInterface';
 import { RouteInterface } from './RouteInterface';
-import { RouterConfigInterface } from '../Config/RouterConfigInterface';
+import { RouterConfigInterface } from '../Config';
 
 export class Router {
   private routes:Array<RegisteredRouteInterface> = [];

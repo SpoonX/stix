@@ -1,4 +1,4 @@
-import { HttpStatusCodes } from '../Server/HttpStatusCodes';
+import { HttpStatusCodes } from '../Server';
 import { Response } from './Response';
 
 export class SuccessfulResponse extends Response {
