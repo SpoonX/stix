@@ -19,12 +19,5 @@
         "src/types/*"
       ]
     }
-  },
-  "exclude"        : [
-    "dist",
-    ".*",
-    "node_modules",
-    "coverage",
-    "typings"
-  ]
+  }
 }
