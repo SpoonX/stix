@@ -1,4 +1,4 @@
-import { RequestMethods } from '../Server/RequestMethods';
+import { RequestMethods } from '../Server';
 import { Key } from 'path-to-regexp';
 
 export interface RegisteredRouteInterface {

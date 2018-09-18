@@ -1,4 +1,4 @@
-import { ModuleClassInterface } from '../ModuleManager/ModuleClassInterface';
+import { ModuleClassInterface } from '../ModuleManager';
 
 export interface ModuleManagerConfigInterface extends Array<ModuleClassInterface> {
 }

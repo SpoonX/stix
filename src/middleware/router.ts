@@ -1,6 +1,6 @@
 import { Middleware } from 'koa';
 import { ContextInterface, ControllerManager, Application } from '../Library';
-import { RequestMethods } from '../Library/Server/RequestMethods';
+import { RequestMethods } from '../Library/Server';
 import createDebugLogger from '../debug';
 
 const debug = createDebugLogger('middleware:router');

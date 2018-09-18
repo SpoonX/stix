@@ -1,4 +1,4 @@
-import { ResponseConfigInterface } from '../Config/ResponseConfigInterface';
+import { ResponseConfigInterface } from '../Config';
 import { InformationalResponse } from './InformationalResponse';
 import { RedirectionResponse } from './RedirectionResponse';
 import { ServerErrorResponse } from './ServerErrorResponse';

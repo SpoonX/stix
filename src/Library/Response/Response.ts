@@ -1,4 +1,4 @@
-import { HttpStatusCodes } from '../Server/HttpStatusCodes';
+import { HttpStatusCodes } from '../Server';
 import { ContextInterface } from '../Interface';
 
 export abstract class Response {
