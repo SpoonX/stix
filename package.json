@@ -1,6 +1,6 @@
 {
   "name": "stix",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A module-based, TypeScript-first Node.js® framework.",
   "repository": {
     "type": "git",
