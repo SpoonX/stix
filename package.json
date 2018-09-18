@@ -1,4 +1,7 @@
 {
+  "name": "stix",
+  "version": "0.0.0",
+  "description": "A module-based, TypeScript-first Node.js® framework.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SpoonX/stix.git"
