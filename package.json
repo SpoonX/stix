@@ -4,7 +4,7 @@
     "url": "git+https://github.com/SpoonX/stix.git"
   },
   "author": "RWOverdijk <r.w.overdijk@gmail.com>",
-  "main": "./dist/src/index.js",
+  "main": "./dist/index.js",
   "keywords": [
     "api",
     "framework",
