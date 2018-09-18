@@ -1,3 +1,13 @@
+<a name="0.2.2"></a>
+## [0.2.2](https://github.com/SpoonX/stix/compare/v0.2.1...v0.2.2) (2018-09-18)
+
+
+### Bug Fixes
+
+* **Config:** add missing RoutesConfigInterface export ([80cec7b](https://github.com/SpoonX/stix/commit/80cec7b))
+
+
+
 <a name="0.2.1"></a>
 ## [0.2.1](https://github.com/SpoonX/stix/compare/v0.2.0...v0.2.1) (2018-09-18)
 
