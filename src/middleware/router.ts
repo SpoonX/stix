@@ -1,4 +1,3 @@
-import { Middleware } from 'koa';
 import { ContextInterface, ControllerManager, Application } from '../Library';
 import { RequestMethods } from '../Library/Server';
 import createDebugLogger from '../debug';

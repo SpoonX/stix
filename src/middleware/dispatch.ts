@@ -1,4 +1,3 @@
-import { Middleware } from 'koa';
 import { ContextInterface, Application, InvalidActionResultError, Response } from '../Library';
 
 export default (app: Application) => async function dispatch (ctx: ContextInterface, next: Function) {

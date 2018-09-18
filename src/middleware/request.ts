@@ -1,5 +1,4 @@
 import bytes from 'bytes';
-import { Middleware } from 'koa';
 import { ContextInterface, Response } from '../Library';
 import { RequestMethods } from '../Library/Server';
 import createDebugLogger from '../debug';
