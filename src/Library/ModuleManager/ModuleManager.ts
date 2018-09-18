@@ -6,9 +6,9 @@ import createDebugLogger from '../../debug';
 const debug = createDebugLogger('modules');
 
 export class ModuleManager {
-  private application: Application;
+  private readonly application: Application;
 
-  private config: ModuleManagerConfigInterface;
+  private readonly config: ModuleManagerConfigInterface;
 
   constructor(application: Application, config: ModuleManagerConfigInterface) {
     this.application = application;
