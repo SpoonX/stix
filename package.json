@@ -23,26 +23,40 @@
   },
   "homepage": "https://github.com/SpoonX/stix",
   "scripts": {
+    "test": "jest",
     "build": "tsc --build tsconfig.json",
     "dev": "tsc --build -w tsconfig.json",
     "prepare": "yarn build",
     "version": "conventional-changelog -p angular -i doc/CHANGELOG.md -s && git add -A doc/CHANGELOG.md",
     "postpublish": "git push upstream master && git push upstream --tags"
   },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(ts?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ]
+  },
   "devDependencies": {
+    "@types/jest": "^23.3.2",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.1.4",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
     "tslint-eslint-rules": "^5.4.0",
     "typescript": "^3.0.3"
   },
   "dependencies": {
+    "@koa/cors": "^2.2.2",
     "@types/bytes": "^3.0.0",
     "@types/debug": "^0.0.30",
     "@types/koa": "^2.0.46",
     "@types/koa-bodyparser": "^5.0.1",
     "@types/koa__cors": "^2.2.3",
     "@types/node": "^10.9.4",
-    "@koa/cors": "^2.2.2",
     "debug": "^4.0.1",
     "homefront": "^3.0.0",
     "koa": "^2.5.3",
