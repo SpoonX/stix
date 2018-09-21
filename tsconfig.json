@@ -12,7 +12,7 @@
     "noImplicitAny": true,
     "moduleResolution": "node",
     "outDir": "dist",
-    "baseUrl": ".",
+    "baseUrl": "./dist",
     "paths": {
       "*": [
         "node_modules/*",
