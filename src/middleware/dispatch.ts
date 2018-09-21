@@ -11,7 +11,7 @@ export default (app: Application) => async function dispatch (ctx: ContextInterf
 
   const { controller, action, controllerName } = ctx.state.dispatch;
   const logger                                 = app.getLogger();
-  const serverError                            = app.getResponseManager().serverError();
+  const serverError                            = app.getResponseService().serverError();
 
   // Route found, controller found... but the action doesn't exist. Or isn't a method.
   if (typeof controller[action] !== 'function') {

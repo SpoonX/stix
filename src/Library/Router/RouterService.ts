@@ -3,8 +3,9 @@ import { RequestMethods } from '../Server';
 import { RegisteredRouteInterface } from './RegisteredRouteInterface';
 import { RouteInterface } from './RouteInterface';
 import { RouterConfigInterface } from '../Config';
+import { AbstractActionController } from '../Controller';
 
-export class Router {
+export class RouterService {
   private routes:Array<RegisteredRouteInterface> = [];
 
   private config: RouterConfigInterface;
@@ -61,7 +62,7 @@ export class Router {
     return this;
   }
 
-  public registerRoute(method: RequestMethods, route: string, controller: { new (): Object }, action: string): this {
+  public registerRoute(method: RequestMethods, route: string, controller: typeof AbstractActionController, action: string): this {
     const keys: Array<Key> = [];
     const regex: RegExp    = pathToRegexp(route, keys);
 

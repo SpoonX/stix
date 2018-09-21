@@ -1,5 +1,5 @@
-import { RoutesConfigInterface } from '../Library/Config/RoutesConfigInterface';
+import { RouterConfigInterface } from '../Library/Config/RoutesConfigInterface';
 
-export const routes: RoutesConfigInterface = {
-
+export const router: RouterConfigInterface = {
+  routes: {},
 };

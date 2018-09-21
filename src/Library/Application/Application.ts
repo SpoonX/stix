@@ -1,8 +1,8 @@
 import winston from 'winston';
-import { Router } from '../Router';
-import { Server } from '../Server';
+import { RouterService } from '../Router';
+import { ServerService } from '../Server';
 import { ControllerManager } from '../Controller';
-import { ResponseManager } from '../Response/ResponseManager';
+import { ResponseService } from '../Response/ResponseService';
 import { ModuleManager } from '../ModuleManager';
 import * as defaultConfig from '../../config';
 import createDebugLogger from '../../debug';
@@ -10,12 +10,10 @@ import {
   ResponseConfigInterface,
   LoggerConfigInterface,
   Config,
-  ConfigInterface,
-  ServerConfigInterface,
-  RouterConfigInterface,
-  ControllerManagerConfigInterface,
+  ConfigType,
   ModuleManagerConfigInterface,
 } from '../Config';
+import { ServiceManager } from '../ServiceManager';
 
 const debug = createDebugLogger('application');
 
@@ -24,28 +22,40 @@ export class Application {
 
   private logger: winston.Logger;
 
-  private router: Router;
+  private router : RouterService;
 
-  private server: Server;
+  private server: ServerService;
 
   private controllerManager: ControllerManager;
 
-  private responseManager: ResponseManager;
+  private ResponseService: ResponseService;
 
   private moduleManager: ModuleManager;
 
-  public constructor(config: ConfigInterface) {
-    this.config = new Config({});
+  private serviceManager: ServiceManager;
 
-    this.config.merge(this.config, defaultConfig, config);
+  public constructor(appConfig: ConfigType) {
+    const config = new Config(defaultConfig, appConfig);
+    const serviceManager = new ServiceManager({
+      aliases: { config: Config },
+      services: new Map<Function, Object>([
+        [ Config, config ],
+        [ Application, this ],
+      ]),
+    });
+
+    serviceManager.configure(config.of('services'));
+
+    this.serviceManager = serviceManager;
+    this.config = config;
   }
 
   private async bootstrap(config: Config): Promise<this> {
     this.logger            = winston.createLogger(config.of<LoggerConfigInterface>('logger'));
-    this.router            = new Router(config.of<RouterConfigInterface>('router'));
-    this.server            = new Server(this, config.of<ServerConfigInterface>('server'));
-    this.controllerManager = new ControllerManager(config.of<ControllerManagerConfigInterface>('controller'));
-    this.responseManager   = new ResponseManager(config.of<ResponseConfigInterface>('response'));
+    this.router            = this.serviceManager.get(RouterService);
+    this.server            = this.serviceManager.get(ServerService);
+    this.controllerManager = this.serviceManager.get(ControllerManager);
+    this.ResponseService   = this.serviceManager.get(ResponseService);
     this.moduleManager     = new ModuleManager(this, config.of<ModuleManagerConfigInterface>('modules'));
 
     await this.server.initialize();
@@ -58,11 +68,11 @@ export class Application {
     return this.logger;
   }
 
-  public getRouter(): Router {
+  public getRouter(): RouterService {
     return this.router;
   }
 
-  public getServer(): Server {
+  public getServer(): ServerService {
     return this.server;
   }
 
@@ -70,8 +80,12 @@ export class Application {
     return this.controllerManager;
   }
 
-  public getResponseManager(): ResponseManager {
-    return this.responseManager;
+  public getModuleManager(): ModuleManager {
+    return this.moduleManager;
+  }
+
+  public getResponseService(): ResponseService {
+    return this.ResponseService;
   }
 
   public getConfig<T>(section: string): T {

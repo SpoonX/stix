@@ -5,7 +5,7 @@ import { ServerErrorResponse } from './ServerErrorResponse';
 import { ClientErrorResponse } from './ClientErrorResponse';
 import { SuccessfulResponse } from './SuccessfulResponse';
 
-export class ResponseManager {
+export class ResponseService {
   private config: ResponseConfigInterface;
 
   constructor(config: ResponseConfigInterface) {

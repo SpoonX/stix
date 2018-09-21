@@ -11,7 +11,7 @@ export default (app: Application) => async function router (ctx: ContextInterfac
   const match  = app.getRouter().resolve(method as RequestMethods, ctx.path);
 
   if (!match) {
-    ctx.state.response = app.getResponseManager().clientError().notFound();
+    ctx.state.response = app.getResponseService().clientError().notFound();
 
     debug('No match, returning not found.');
 
@@ -20,7 +20,7 @@ export default (app: Application) => async function router (ctx: ContextInterfac
 
   const { route, parameters } = match;
   const controllerName        = ControllerManager.getControllerName(route.controller);
-  const controller: any       = app.getControllerManager().getController(controllerName);
+  const controller: any       = app.getControllerManager().get(controllerName);
 
   ctx.params = parameters;
 

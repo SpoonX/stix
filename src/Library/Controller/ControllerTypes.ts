@@ -1,3 +1,3 @@
-import { ControllerInterface } from './ControllerInterface';
+import { AbstractActionController } from './AbstractActionController';
 
-export type ControllerType = string | ControllerInterface;
+export type ControllerType = string | typeof AbstractActionController;

@@ -7,11 +7,9 @@ A module-based, TypeScript-first Node.js® framework.
 This module is being developed as you're reading this. What's missing?
 
 - Wetland ORM module.
-- Guards module publish.
 - CLI tools.
 - Documentation.
 - Test coverage.
-
 
 ## License
 

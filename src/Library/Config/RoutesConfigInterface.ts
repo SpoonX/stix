@@ -1,3 +1,5 @@
-export interface RoutesConfigInterface {
-  [route: string]: string;
+export interface RouterConfigInterface {
+  routes: {
+    [route: string]: string;
+  };
 }
