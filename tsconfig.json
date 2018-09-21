@@ -6,18 +6,17 @@
     "module": "commonjs",
     "esModuleInterop": true,
     "declaration": true,
+
+
+
+
     "sourceMap": true,
     "target": "es6",
+    "declarationDir": "./dist",
     "experimentalDecorators": true,
     "noImplicitAny": true,
     "moduleResolution": "node",
-    "outDir": "dist",
-    "baseUrl": ".",
-    "paths": {
-      "*": [
-        "node_modules/*",
-        "src/types/*"
-      ]
-    }
+    "outDir": "./dist",
+
   }
 }
