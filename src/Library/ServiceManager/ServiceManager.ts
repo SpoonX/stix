@@ -3,8 +3,6 @@ import { ServicesMapType, FactoriesMapType, AliasesType, ServiceKeyType, Service
 import { NotFoundError } from '../Error';
 
 /**
- * @todo implement shared/non-shared for singleton vs
- *
  * @export
  * @class ServiceManager
  * @implements {ServiceManagerInterface}
