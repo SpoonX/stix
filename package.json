@@ -8,7 +8,9 @@
   },
   "author": "RWOverdijk <r.w.overdijk@gmail.com>",
   "main": "./dist/index.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "types": "dist/index.d.ts",
   "keywords": [
     "api",
@@ -49,7 +51,7 @@
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
     "tslint-eslint-rules": "^5.4.0",
-    "typescript": "^3.1.0-dev.20180804"
+    "typescript": "^3.0.3"
   },
   "dependencies": {
     "@koa/cors": "^2.2.2",
