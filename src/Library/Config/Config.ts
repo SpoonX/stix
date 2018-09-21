@@ -1,10 +1,12 @@
+import { ConfigType } from './ConfigInterface';
+
 interface ConfigData { [key: string]: any; }
 
 export class Config {
-  private data: ConfigData;
+  private data: ConfigData = {};
 
-  constructor(data: ConfigData = {}) {
-    this.data = data;
+  constructor(...data: Array<ConfigData>) {
+    this.merge(...data);
   }
 
   of<T> (section: string): T {

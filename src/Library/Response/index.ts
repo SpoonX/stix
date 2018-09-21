@@ -6,3 +6,5 @@ export * from './SuccessfulResponse';
 export * from './ClientErrorResponse';
 export * from './InformationalResponse';
 export * from './RedirectionResponse';
+export * from './ResponseServiceFactory';
+export * from './ResponseService';

@@ -1,4 +1,5 @@
 import { SuccessfulResponse, InformationalResponse, RedirectionResponse, ClientErrorResponse, ServerErrorResponse } from '../Library/Response';
+import { ResponseConfigInterface } from '../Library';
 
 /**
  * Response configuration.
@@ -6,7 +7,7 @@ import { SuccessfulResponse, InformationalResponse, RedirectionResponse, ClientE
  * Register your custom responses with stix.
  * This allows stix and stix modules to use your response classes (instead of the builtin classes) to create responses.
  */
-export const response = {
+export const response: ResponseConfigInterface = {
   responses: {
     informational: InformationalResponse,
     successful: SuccessfulResponse,

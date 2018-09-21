@@ -1,8 +1,9 @@
 import { RequestMethods } from '../Server';
+import { AbstractActionController } from '../Controller';
 
 export interface RouteInterface {
   method: RequestMethods;
   route: string;
-  controller: { new (): Object };
+  controller: typeof AbstractActionController;
   action: string;
 }

@@ -1,5 +1,5 @@
-import { Application, ConfigInterface } from './Library';
+import { Application, ConfigType } from './Library';
 
 export * from './Library';
 
-export default (config: ConfigInterface) => new Application(config);
+export default (config: ConfigType) => new Application(config);

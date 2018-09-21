@@ -1,3 +1,4 @@
 export * from './ControllerManager';
-export * from './ControllerInterface';
+export * from './ControllerManagerFactory';
 export * from './ControllerTypes';
+export * from './AbstractActionController';
