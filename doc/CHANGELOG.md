@@ -1,3 +1,14 @@
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/SpoonX/stix/compare/v0.2.2...v1.0.0) (2018-09-21)
+
+
+### Features
+
+* **project:** setup tests and add config with Map support ([3a492b4](https://github.com/SpoonX/stix/commit/3a492b4))
+* **ServiceManager:** implement the service manager ([d778841](https://github.com/SpoonX/stix/commit/d778841))
+
+
+
 <a name="0.2.2"></a>
 ## [0.2.2](https://github.com/SpoonX/stix/compare/v0.2.1...v0.2.2) (2018-09-18)
 
