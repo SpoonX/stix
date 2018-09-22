@@ -11,8 +11,8 @@ export class ControllerManager extends AbstractPluginManager {
   constructor(creationContext: ServiceManager, config: ControllerManagerConfigType) {
     super(creationContext, config.controllers);
 
-    if (config.location) {
-      this.loadControllers(config.location);
+    if (config.locations) {
+      this.loadFromLocations(config.locations);
     }
   }
 
@@ -24,7 +24,13 @@ export class ControllerManager extends AbstractPluginManager {
     return controller.name;
   }
 
-  public loadControllers(controllerDirectory: string) {
+  public loadFromLocations(controllerDirectories: string[]): this {
+    controllerDirectories.forEach(directory => this.loadDirectory(directory));
+
+    return this;
+  }
+
+  public loadDirectory(controllerDirectory: string) {
     const controllers: Array<typeof AbstractActionController> = fs.readdirSync(controllerDirectory)
       .filter((fileName: string) => !!fileName.match(/^(?!(index)).+\.js$/))
       .map((fileName: string) => fileName.replace(/\.js$/, ''))
@@ -60,7 +66,9 @@ export class ControllerManager extends AbstractPluginManager {
   }
 
   protected registerController(Controller: typeof AbstractActionController): this {
-    this.registerFactory(Controller.name, ControllerFactoryFactory(Controller));
+    this.registerFactory(Controller, ControllerFactoryFactory(Controller));
+
+    this.registerAlias(Controller.name, Controller);
 
     return this;
   }
