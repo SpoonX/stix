@@ -3,7 +3,7 @@ interface ConfigData { [key: string]: any; }
 export class Config {
   private data: ConfigData = {};
 
-  constructor(...data: Array<ConfigData>) {
+  constructor (...data: Array<ConfigData>) {
     this.merge(...data);
   }
 

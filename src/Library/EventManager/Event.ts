@@ -1,15 +1,15 @@
 export class Event<T> {
-  constructor(private event: string, private target: any, private payload: any) { }
+  constructor (private event: string, private target: any, private payload: any) { }
 
-  getEvent(): string {
+  getEvent (): string {
     return this.event;
   }
 
-  getTarget(): T {
+  getTarget (): T {
     return this.target;
   }
 
-  getPayload(): any {
+  getPayload (): any {
     return this.payload;
   }
 }

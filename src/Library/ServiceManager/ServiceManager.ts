@@ -21,7 +21,7 @@ export class ServiceManager implements ServiceManagerInterface {
 
   protected creationContext: ServiceManager;
 
-  constructor(config?: ServiceManagerConfigType) {
+  constructor (config?: ServiceManagerConfigType) {
     this.creationContext = this;
 
     if (config) {
@@ -29,7 +29,7 @@ export class ServiceManager implements ServiceManagerInterface {
     }
   }
 
-  public get<T>(Service: ServiceKeyType<T>, forceTransient: boolean = false): T {
+  public get<T> (Service: ServiceKeyType<T>, forceTransient: boolean = false): T {
     const resolvedName = this.resolveName(Service) as ServiceKeyType<T>;
 
     if (!this.has(resolvedName)) {
@@ -51,19 +51,19 @@ export class ServiceManager implements ServiceManagerInterface {
     return this.services.get(resolvedName) as T;
   }
 
-  has<T>(Service: ServiceKeyType<T>): boolean {
+  has<T> (Service: ServiceKeyType<T>): boolean {
     const resolvedName = this.resolveName(Service) as ServiceKeyType<T>;
 
     return this.services.has(resolvedName) || this.factories.has(resolvedName);
   }
 
-  public registerFactory(key: Function | string, value: ServiceFactoryType<Object>): this {
+  public registerFactory (key: Function | string, value: ServiceFactoryType<Object>): this {
     this.factories.set(key, value);
 
     return this;
   }
 
-  public registerFactories(factories: FactoriesMapType): this {
+  public registerFactories (factories: FactoriesMapType): this {
     factories.forEach((value: ServiceFactoryType<Object>, key: Function | string) => {
       this.registerFactory(key, value);
     });
@@ -71,13 +71,13 @@ export class ServiceManager implements ServiceManagerInterface {
     return this;
   }
 
-  public registerService(key: Function | string, service: Object): this {
+  public registerService (key: Function | string, service: Object): this {
     this.services.set(key, service);
 
     return this;
   }
 
-  public configure(config: ServiceManagerConfigType): this {
+  public configure (config: ServiceManagerConfigType): this {
     if (typeof config.sharedByDefault === 'boolean') {
       this.sharedByDefault = config.sharedByDefault;
     }
@@ -107,19 +107,19 @@ export class ServiceManager implements ServiceManagerInterface {
     return this;
   }
 
-  public registerAliases(aliases: AliasesType): this {
+  public registerAliases (aliases: AliasesType): this {
     Object.assign(this.aliases, aliases);
 
     return this;
   }
 
-  public registerAlias(alias: string, to: string | Function): this {
+  public registerAlias (alias: string, to: string | Function): this {
     this.aliases[alias] = to;
 
     return this;
   }
 
-  private resolveName<T>(name: ServiceKeyType<T>): ServiceKeyType<T> {
+  private resolveName<T> (name: ServiceKeyType<T>): ServiceKeyType<T> {
     if (typeof name !== 'string') {
       return name;
     }

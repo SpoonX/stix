@@ -37,8 +37,8 @@ export class Application {
 
   private sharedEventManager: SharedEventManager;
 
-  public constructor(appConfig: ConfigType) {
-    this.config         = new Config(defaultConfig, appConfig);;
+  public constructor (appConfig: ConfigType) {
+    this.config         = new Config(defaultConfig, appConfig);
     this.serviceManager = new ServiceManager({
       aliases: { config: Config, sharedEventManager: SharedEventManager },
       invokables: new Map<Instantiable<Object>, Instantiable<Object>>([
@@ -58,7 +58,7 @@ export class Application {
     });
   }
 
-  private async bootstrap(): Promise<this> {
+  private async bootstrap (): Promise<this> {
     const config = this.config;
 
     // Make the module manager. Only one level is allowed to specify module configs..
@@ -90,43 +90,43 @@ export class Application {
     return this;
   }
 
-  public getLogger(): LoggerService {
+  public getLogger (): LoggerService {
     return this.logger;
   }
 
-  public getRouter(): RouterService {
+  public getRouter (): RouterService {
     return this.router;
   }
 
-  public getServer(): ServerService {
+  public getServer (): ServerService {
     return this.server;
   }
 
-  public getControllerManager(): ControllerManager {
+  public getControllerManager (): ControllerManager {
     return this.controllerManager;
   }
 
-  public getModuleManager(): ModuleManager {
+  public getModuleManager (): ModuleManager {
     return this.moduleManager;
   }
 
-  public getResponseService(): ResponseService {
+  public getResponseService (): ResponseService {
     return this.responseService;
   }
 
-  public getServiceManager(): ServiceManager {
+  public getServiceManager (): ServiceManager {
     return this.serviceManager;
   }
 
-  public getConfigOf<T>(section: string): T {
+  public getConfigOf<T> (section: string): T {
     return this.config.of<T>(section);
   }
 
-  public getConfig(): Config {
+  public getConfig (): Config {
     return this.config;
   }
 
-  public async launch(): Promise<this> {
+  public async launch (): Promise<this> {
     debug('Launching server');
 
     await this.bootstrap();

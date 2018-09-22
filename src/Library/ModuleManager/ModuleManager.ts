@@ -14,7 +14,7 @@ export class ModuleManager {
 
   private readonly application: Application;
 
-  constructor(application: Application, eventManager: EventManager, config: Config) {
+  constructor (application: Application, eventManager: EventManager, config: Config) {
     this.application  = application;
     this.eventManager = eventManager;
     this.config       = config;
@@ -24,7 +24,7 @@ export class ModuleManager {
     return await this.eventManager.trigger(ModuleManagerEvents.OnBootstrap, this);
   }
 
-  public async loadModule(ModuleClass: ModuleClassInterface): Promise<this> {
+  public async loadModule (ModuleClass: ModuleClassInterface): Promise<this> {
     debug('Loading module ' + ModuleClass.name);
 
     const eventManager = this.eventManager;
@@ -48,15 +48,15 @@ export class ModuleManager {
     return this;
   }
 
-  public getEventManager(): EventManager {
+  public getEventManager (): EventManager {
     return this.eventManager;
   }
 
-  public getApplication(): Application {
+  public getApplication (): Application {
     return this.application;
   }
 
-  public async loadModules(config: ModuleManagerConfigInterface): Promise<this> {
+  public async loadModules (config: ModuleManagerConfigInterface): Promise<this> {
     debug('Loading modules');
 
     for(let i = 0; i < config.length; i++) {

@@ -8,7 +8,7 @@ import { ControllerFactoryFactory } from './ControllerFactoryFactory';
 import { AbstractActionController } from './AbstractActionController';
 
 export class ControllerManager extends AbstractPluginManager {
-  constructor(creationContext: ServiceManager, config: ControllerManagerConfigType) {
+  constructor (creationContext: ServiceManager, config: ControllerManagerConfigType) {
     super(creationContext, config.controllers);
 
     if (config.locations) {
@@ -16,7 +16,7 @@ export class ControllerManager extends AbstractPluginManager {
     }
   }
 
-  public static getControllerName(controller: ControllerType): string {
+  public static getControllerName (controller: ControllerType): string {
     if (typeof controller === 'string') {
       return controller;
     }
@@ -24,13 +24,13 @@ export class ControllerManager extends AbstractPluginManager {
     return controller.name;
   }
 
-  public loadFromLocations(controllerDirectories: string[]): this {
+  public loadFromLocations (controllerDirectories: string[]): this {
     controllerDirectories.forEach(directory => this.loadDirectory(directory));
 
     return this;
   }
 
-  public loadDirectory(controllerDirectory: string) {
+  public loadDirectory (controllerDirectory: string) {
     const controllers: Array<typeof AbstractActionController> = fs.readdirSync(controllerDirectory)
       .filter((fileName: string) => !!fileName.match(/^(?!(index)).+\.js$/))
       .map((fileName: string) => fileName.replace(/\.js$/, ''))
@@ -55,17 +55,17 @@ export class ControllerManager extends AbstractPluginManager {
       this.registerControllers(controllers);
   }
 
-  public getController(controller: ControllerType): Object {
+  public getController (controller: ControllerType): Object {
     return this.get(ControllerManager.getControllerName(controller));
   }
 
-  protected registerControllers(controllers: Array<typeof AbstractActionController>): this {
+  protected registerControllers (controllers: Array<typeof AbstractActionController>): this {
     controllers.forEach(Controller => this.registerController(Controller));
 
     return this;
   }
 
-  protected registerController(Controller: typeof AbstractActionController): this {
+  protected registerController (Controller: typeof AbstractActionController): this {
     this.registerFactory(Controller, ControllerFactoryFactory(Controller));
 
     this.registerAlias(Controller.name, Controller);

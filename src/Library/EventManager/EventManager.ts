@@ -13,7 +13,7 @@ export class EventManager extends EventEmitter {
     this.sharedEventManager = sharedEventManager;
   }
 
-  async trigger(eventName: string, target: any, payload?: any): Promise<boolean> {
+  async trigger (eventName: string, target: any, payload?: any): Promise<boolean> {
     if (!this.hooks[eventName]) {
       return false;
     }
@@ -46,13 +46,13 @@ export class EventManager extends EventEmitter {
     return this.hooks[event] && this.hooks[event].indexOf(callback) > -1;
   }
 
-  attachOnce(eventName: string, callback: Function, index?: number) {
+  attachOnce (eventName: string, callback: Function, index?: number) {
     (callback as SelfDestructingCallbackInterface)._isSelfDestructingCallback = true;
 
     this.attach(eventName, callback, index);
   }
 
-  attach(event: string, callback: Function, index?: number): this {
+  attach (event: string, callback: Function, index?: number): this {
     this.hooks[event] = this.hooks[event] || [];
 
     if (index) {
@@ -64,11 +64,11 @@ export class EventManager extends EventEmitter {
     return this;
   }
 
-  attachAt(index: number, event: string, callback: Function): this {
+  attachAt (index: number, event: string, callback: Function): this {
     return this.attach(event, callback, index);
   }
 
-  detach(event: string, callback: Function): this {
+  detach (event: string, callback: Function): this {
     if (!this.hooks[event]) {
       return this;
     }
@@ -88,7 +88,7 @@ export class EventManager extends EventEmitter {
     return this;
   }
 
-  getSharedEventManager(): EventManager {
+  getSharedEventManager (): EventManager {
     return this.sharedEventManager;
   }
 }

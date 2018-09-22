@@ -20,25 +20,25 @@ export class ServerService {
     this.server = new Koa();
   }
 
-  public use(...middlewares: Array<Middleware>): this {
+  public use (...middlewares: Array<Middleware>): this {
     middlewares.forEach(middleware => this.server.use(middleware));
 
     return this;
   }
 
-  public useBefore(middleware: string | Middleware, ...middlewares: Array<Middleware>): this {
+  public useBefore (middleware: string | Middleware, ...middlewares: Array<Middleware>): this {
     return this.updateMiddleware(this.indexOfMiddleware(middleware), 0, ...middlewares);
   }
 
-  public useAfter(middleware: string | Middleware, ...middlewares: Array<Middleware>): this {
+  public useAfter (middleware: string | Middleware, ...middlewares: Array<Middleware>): this {
     return this.updateMiddleware(this.indexOfMiddleware(middleware) + 1, 0, ...middlewares);
   }
 
-  public replace(middleware: string | Middleware, ...middlewares: Array<Middleware>): this {
+  public replace (middleware: string | Middleware, ...middlewares: Array<Middleware>): this {
     return this.updateMiddleware(this.indexOfMiddleware(middleware), 1, ...middlewares);
   }
 
-  public updateMiddleware(at: number, remove: number, ...middlewares: Array<Middleware>): this {
+  public updateMiddleware (at: number, remove: number, ...middlewares: Array<Middleware>): this {
     const middleware  = this.server.middleware;
 
     if (at === -1) {
@@ -50,7 +50,7 @@ export class ServerService {
     return this;
   }
 
-  public indexOfMiddleware(middleware: string | Middleware) {
+  public indexOfMiddleware (middleware: string | Middleware) {
     if (typeof middleware === 'function') {
       return this.server.middleware.indexOf(middleware);
     }
@@ -58,7 +58,7 @@ export class ServerService {
     return this.server.middleware.findIndex(suspect => suspect.name === middleware);
   }
 
-  public async initialize(config: ServerConfigInterface): Promise<void> {
+  public async initialize (config: ServerConfigInterface): Promise<void> {
     this.config = config;
 
     if (config.cors.enabled) {
@@ -73,11 +73,11 @@ export class ServerService {
     );
   }
 
-  public getServer(): Koa {
+  public getServer (): Koa {
     return this.server;
   }
 
-  public start(): this {
+  public start (): this {
     this.server.listen(this.config.port || DEFAULT_PORT);
 
     return this;

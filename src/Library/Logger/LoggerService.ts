@@ -9,7 +9,7 @@ export class LoggerService {
     this.adapter = winston.createLogger(config);
   }
 
-  public getAdapter(): WinstonLogger {
+  public getAdapter (): WinstonLogger {
     return this.adapter;
   }
 
