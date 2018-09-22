@@ -1,6 +1,6 @@
 import { ModuleInterface } from './ModuleInterface';
-import { Application } from '../Application';
+import { Instantiable } from '../Core';
 
-export interface ModuleClassInterface {
-  new(app?: Application): ModuleInterface;
+export interface ModuleClassInterface extends Instantiable<ModuleInterface> {
+
 }
