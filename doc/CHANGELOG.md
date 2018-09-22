@@ -1,3 +1,20 @@
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/SpoonX/stix/compare/v1.0.2...v2.0.0) (2018-09-22)
+
+
+### Features
+
+* **Config:** implement formalized Config service ([9f9ad5f](https://github.com/SpoonX/stix/commit/9f9ad5f))
+* **Controller:** load from multiple locations ([069edd5](https://github.com/SpoonX/stix/commit/069edd5))
+* **Logger:** create EventManager ([b61522b](https://github.com/SpoonX/stix/commit/b61522b))
+* **Logger:** create Logger service ([dc5afc2](https://github.com/SpoonX/stix/commit/dc5afc2))
+* **ModuleManager:** implement formalized module system ([6af926e](https://github.com/SpoonX/stix/commit/6af926e))
+* **project:** add core types ([4e44d2f](https://github.com/SpoonX/stix/commit/4e44d2f))
+* **Server:** add robust middleware support ([6996b9c](https://github.com/SpoonX/stix/commit/6996b9c))
+* **ServiceManager:** fix typings and add support for shareable services ([6b12b66](https://github.com/SpoonX/stix/commit/6b12b66))
+
+
+
 <a name="1.0.2"></a>
 ## [1.0.2](https://github.com/SpoonX/stix/compare/v1.0.1...v1.0.2) (2018-09-21)
 
