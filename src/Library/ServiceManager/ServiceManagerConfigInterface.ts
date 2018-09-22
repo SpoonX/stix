@@ -1,20 +1,20 @@
 import { ServiceManagerInterface } from './ServiceManagerInterface';
-
-export interface ServiceType<T> extends Function { new (...args: any[]): T; }
+import { Instantiable } from '../Core/Types';
+import { FactoryInterface } from './FactoryInterface';
 
 export interface ServiceFactoryType<T> extends Function { (sm?: ServiceManagerInterface): T; }
 
-export type FactoriesMapType = Map<Function | string, ServiceFactoryType<Object>>;
+export type FactoriesMapType = Map<Function | string, FactoryInterface>;
 
 export type ServicesMapType = Map<Function | string, Object>;
 
-export type InvokablesMapType<T> = Map<Function | string, { new (...args: any[]): T; }>;
+export type InvokablesMapType<T> = Map<Instantiable<Object> | string, Instantiable<T>>;
 
 export type AliasesType = { [alias: string]: string | Function };
 
 export type SharedMapType = Map<Function | string, Object>;
 
-export type ServiceKeyType<T> = ServiceType<T> | string;
+export type ServiceKeyType<T> = Instantiable<T> | string;
 
 export type ServiceManagerConfigType = Partial<{
   sharedByDefault: boolean;

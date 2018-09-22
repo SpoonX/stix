@@ -8,3 +8,6 @@ export * from './ServiceManager';
 export * from './Response';
 export * from './Router';
 export * from './Server';
+export * from './Core';
+export * from './Logger';
+export * from './EventManager';

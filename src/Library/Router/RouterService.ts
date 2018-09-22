@@ -16,7 +16,7 @@ export class RouterService {
     this.registerRoutes(this.config.routes);
   }
 
-  public resolve(method: RequestMethods, target: string): { route: RegisteredRouteInterface, parameters: {} } | null {
+  public resolve (method: RequestMethods, target: string): { route: RegisteredRouteInterface, parameters: {} } | null {
     for (let i = 0; i < this.routes.length; i++) {
       const route = this.routes[i];
 
@@ -48,7 +48,7 @@ export class RouterService {
     return this.buildParameters(keys, result);
   }
 
-  public registerRoutes(routes: Array<RouteInterface | Array<RouteInterface>>): this {
+  public registerRoutes (routes: Array<RouteInterface | Array<RouteInterface>>): this {
     routes.forEach(newRoute => {
       if (Array.isArray(newRoute)) {
         return this.registerRoutes(newRoute);
@@ -62,7 +62,7 @@ export class RouterService {
     return this;
   }
 
-  public registerRoute(method: RequestMethods, route: string, controller: typeof AbstractActionController, action: string): this {
+  public registerRoute (method: RequestMethods, route: string, controller: typeof AbstractActionController, action: string): this {
     const keys: Array<Key> = [];
     const regex: RegExp    = pathToRegexp(route, keys);
 
@@ -71,7 +71,7 @@ export class RouterService {
     return this;
   }
 
-  public buildParameters(from: Array<Key>, result: RegExpExecArray): {} {
+  public buildParameters (from: Array<Key>, result: RegExpExecArray): {} {
     return result.reduce((params, match, index): {} => {
       return Object.assign(params, { [from[index].name]: match });
     }, {});

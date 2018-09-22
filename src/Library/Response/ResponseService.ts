@@ -8,27 +8,27 @@ import { SuccessfulResponse } from './SuccessfulResponse';
 export class ResponseService {
   private config: ResponseConfigInterface;
 
-  constructor(config: ResponseConfigInterface) {
+  constructor (config: ResponseConfigInterface) {
     this.config = config;
   }
 
-  public informational(): typeof InformationalResponse {
+  public informational (): typeof InformationalResponse {
     return this.config.responses.informational;
   }
 
-  public redirection(): typeof RedirectionResponse {
+  public redirection (): typeof RedirectionResponse {
     return this.config.responses.redirection;
   }
 
-  public serverError(): typeof ServerErrorResponse {
+  public serverError (): typeof ServerErrorResponse {
     return this.config.responses.serverError;
   }
 
-  public clientError(): typeof ClientErrorResponse {
+  public clientError (): typeof ClientErrorResponse {
     return this.config.responses.clientError;
   }
 
-  public successful(): typeof SuccessfulResponse {
+  public successful (): typeof SuccessfulResponse {
     return this.config.responses.successful;
   }
 }

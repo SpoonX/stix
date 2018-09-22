@@ -1,6 +1,7 @@
 import { ServiceManagerInterface } from './ServiceManagerInterface';
-import { ServicesMapType, FactoriesMapType, AliasesType, ServiceKeyType, ServiceFactoryType, SharedMapType, ServiceManagerConfigType, ServiceType } from './ServiceManagerConfigInterface';
+import { ServicesMapType, FactoriesMapType, AliasesType, ServiceKeyType, ServiceFactoryType, SharedMapType, ServiceManagerConfigType } from './ServiceManagerConfigInterface';
 import { NotFoundError } from '../Error';
+import { Instantiable } from '../Core/Types';
 
 /**
  * @export
@@ -20,7 +21,7 @@ export class ServiceManager implements ServiceManagerInterface {
 
   protected creationContext: ServiceManager;
 
-  constructor(config?: ServiceManagerConfigType) {
+  constructor (config?: ServiceManagerConfigType) {
     this.creationContext = this;
 
     if (config) {
@@ -28,8 +29,8 @@ export class ServiceManager implements ServiceManagerInterface {
     }
   }
 
-  public get<T>(Service: ServiceKeyType<T>, forceTransient: boolean = false): T {
-    const resolvedName = this.resolveName(Service) as ServiceType<T>;
+  public get<T> (Service: ServiceKeyType<T>, forceTransient: boolean = false): T {
+    const resolvedName = this.resolveName(Service) as ServiceKeyType<T>;
 
     if (!this.has(resolvedName)) {
       throw new NotFoundError(`Unable to locate service "${typeof Service === 'string' ? Service : Service.name}".`);
@@ -37,9 +38,10 @@ export class ServiceManager implements ServiceManagerInterface {
 
     if (forceTransient || !this.services.has(resolvedName)) {
       const service = this.factories.get(resolvedName)(this.creationContext) as T;
+      const shared  = this.shared.has(resolvedName) ? this.shared.get(resolvedName) : this.sharedByDefault;
 
       // We just needed a new instance or we don't want our instances to be shared.. Return service.
-      if (forceTransient || (!this.sharedByDefault && !this.shared.has(resolvedName))) {
+      if (forceTransient || !shared) {
         return service;
       }
 
@@ -49,19 +51,19 @@ export class ServiceManager implements ServiceManagerInterface {
     return this.services.get(resolvedName) as T;
   }
 
-  has<T>(Service: ServiceKeyType<T>): boolean {
-    const resolvedName = this.resolveName(Service) as ServiceType<T>;
+  has<T> (Service: ServiceKeyType<T>): boolean {
+    const resolvedName = this.resolveName(Service) as ServiceKeyType<T>;
 
     return this.services.has(resolvedName) || this.factories.has(resolvedName);
   }
 
-  public registerFactory(key: Function | string, value: ServiceFactoryType<Object>): this {
+  public registerFactory (key: Function | string, value: ServiceFactoryType<Object>): this {
     this.factories.set(key, value);
 
     return this;
   }
 
-  public registerFactories(factories: FactoriesMapType): this {
+  public registerFactories (factories: FactoriesMapType): this {
     factories.forEach((value: ServiceFactoryType<Object>, key: Function | string) => {
       this.registerFactory(key, value);
     });
@@ -69,27 +71,27 @@ export class ServiceManager implements ServiceManagerInterface {
     return this;
   }
 
-  public registerService(key: Function | string, service: Object): this {
+  public registerService (key: Function | string, service: Object): this {
     this.services.set(key, service);
 
     return this;
   }
 
-  public configure(config: ServiceManagerConfigType): this {
+  public configure (config: ServiceManagerConfigType): this {
     if (typeof config.sharedByDefault === 'boolean') {
       this.sharedByDefault = config.sharedByDefault;
     }
 
     if (config.shared instanceof Map) {
-      config.shared.forEach((value, key: Function | string) => this.shared.set(key, value));
+      config.shared.forEach((value, key: ServiceKeyType<Object>) => this.shared.set(key, value));
     }
 
     if (config.services instanceof Map) {
-      config.services.forEach((value, key: Function | string) => this.services.set(key, value));
+      config.services.forEach((value, key: ServiceKeyType<Object>) => this.services.set(key, value));
     }
 
     if (config.invokables instanceof Map) {
-      config.invokables.forEach((value, key: Function | string) => {
+      config.invokables.forEach((value: Instantiable<Object>, key: ServiceKeyType<Object>) => {
         this.factories.set(key, () => new value);
       });
     }
@@ -105,7 +107,19 @@ export class ServiceManager implements ServiceManagerInterface {
     return this;
   }
 
-  private resolveName<T>(name: ServiceKeyType<T>): ServiceKeyType<T> {
+  public registerAliases (aliases: AliasesType): this {
+    Object.assign(this.aliases, aliases);
+
+    return this;
+  }
+
+  public registerAlias (alias: string, to: string | Function): this {
+    this.aliases[alias] = to;
+
+    return this;
+  }
+
+  private resolveName<T> (name: ServiceKeyType<T>): ServiceKeyType<T> {
     if (typeof name !== 'string') {
       return name;
     }

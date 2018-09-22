@@ -1,39 +1,62 @@
-import { Application } from '../Application';
-import { ModuleClassInterface } from './ModuleClassInterface';
-import { ModuleManagerConfigInterface } from '../Config';
+import { Config, ModuleManagerConfigInterface } from '../Config';
 import createDebugLogger from '../../debug';
+import { EventManager } from '../EventManager';
+import { ModuleManagerEvents } from '../EventManager/ModuleManagerEvents';
+import { ModuleClassInterface } from './ModuleClassInterface';
+import { Application } from '../Application';
 
 const debug = createDebugLogger('modules');
 
 export class ModuleManager {
+  private readonly config: Config;
+
+  private readonly eventManager: EventManager;
+
   private readonly application: Application;
 
-  private readonly config: ModuleManagerConfigInterface;
-
-  constructor(application: Application, config: ModuleManagerConfigInterface) {
-    this.application = application;
-    this.config      = config;
+  constructor (application: Application, eventManager: EventManager, config: Config) {
+    this.application  = application;
+    this.eventManager = eventManager;
+    this.config       = config;
   }
 
-  public async initialize(): Promise<this> {
-    debug('Initializing');
-
-    return await this.loadModules(this.config);
+  public async bootstrap () {
+    return await this.eventManager.trigger(ModuleManagerEvents.OnBootstrap, this);
   }
 
-  public async loadModule(ModuleClass: ModuleClassInterface): Promise<this> {
+  public async loadModule (ModuleClass: ModuleClassInterface): Promise<this> {
     debug('Loading module ' + ModuleClass.name);
 
-    const module = new ModuleClass(this.application);
+    const eventManager = this.eventManager;
+    const module       = new ModuleClass();
 
-    await module.bootstrap();
+    if (typeof module.getConfig === 'function') {
+      this.config.merge(await module.getConfig());
+    }
+
+    if (typeof module.init === 'function') {
+      module.init(this);
+    }
+
+    // Allow for a convenience onBootstrap method.
+    if (typeof module.onBootstrap === 'function' && !eventManager.has(ModuleManagerEvents.OnBootstrap, module.onBootstrap)) {
+      eventManager.attachOnce(ModuleManagerEvents.OnBootstrap, module.onBootstrap);
+    }
 
     debug('Bootstrapped module ' + ModuleClass.name);
 
     return this;
   }
 
-  public async loadModules(config: ModuleManagerConfigInterface): Promise<this> {
+  public getEventManager (): EventManager {
+    return this.eventManager;
+  }
+
+  public getApplication (): Application {
+    return this.application;
+  }
+
+  public async loadModules (config: ModuleManagerConfigInterface): Promise<this> {
     debug('Loading modules');
 
     for(let i = 0; i < config.length; i++) {

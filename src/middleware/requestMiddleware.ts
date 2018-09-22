@@ -5,7 +5,7 @@ import createDebugLogger from '../debug';
 
 const debug = createDebugLogger('middleware:request');
 
-export default () => async function request (ctx: ContextInterface, next: Function) {
+export const requestMiddleware = () => async function request (ctx: ContextInterface, next: Function) {
   debug(`<-- ${ctx.method.toUpperCase()} ${ctx.path}`);
   await next();
 
