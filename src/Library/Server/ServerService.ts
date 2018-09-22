@@ -3,9 +3,7 @@ import cors from '@koa/cors';
 import bodyParser from 'koa-bodyparser';
 import { ServerConfigInterface } from '../Config';
 import { Application } from '../Application';
-import routerMiddleware from '../../middleware/router';
-import requestMiddleware from '../../middleware/request';
-import dispatchMiddleware from '../../middleware/dispatch';
+import { dispatchMiddleware, requestMiddleware, routerMiddleware } from '../../middleware';
 
 export const DEFAULT_PORT: number = 1991;
 

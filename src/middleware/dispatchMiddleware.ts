@@ -1,12 +1,8 @@
 import { ContextInterface, Application, InvalidActionResultError, Response } from '../Library';
 
-export default (app: Application) => async function dispatch (ctx: ContextInterface, next: Function) {
-  // Dispatch needs to be the last middleware to run.
-  // This leaves space for module-land and user-land middleware to run first.
-  await next();
-
+export const dispatchMiddleware = (app: Application) => async function dispatch (ctx: ContextInterface, next: Function) {
   if (ctx.state.response) {
-    return;
+    return next();
   }
 
   const { controller, action, controllerName } = ctx.state.dispatch;
@@ -19,7 +15,7 @@ export default (app: Application) => async function dispatch (ctx: ContextInterf
 
     ctx.state.response = serverError.notImplemented();
 
-    return;
+    return next();
   }
 
   let response;
@@ -41,4 +37,6 @@ export default (app: Application) => async function dispatch (ctx: ContextInterf
   }
 
   ctx.state.response = response;
+
+  next();
 };
