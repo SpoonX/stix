@@ -1,5 +1,3 @@
-import { ConfigType } from './ConfigInterface';
-
 interface ConfigData { [key: string]: any; }
 
 export class Config {

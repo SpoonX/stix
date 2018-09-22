@@ -1,6 +1,6 @@
 import { ServiceManagerConfigType } from '../ServiceManager';
 
 export type ControllerManagerConfigType = Partial<{
-  location: string;
+  locations: string[];
   controllers: ServiceManagerConfigType;
 }>;
