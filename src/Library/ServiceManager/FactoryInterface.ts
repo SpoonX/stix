@@ -1,2 +1,2 @@
-export interface FactoryInterface {
+export interface FactoryInterface extends Function {
 }
