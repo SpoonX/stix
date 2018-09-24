@@ -1,5 +1,5 @@
 import { ServiceManagerInterface } from './ServiceManagerInterface';
-import { Instantiable } from '../Core/Types';
+import { Instantiable } from '../Core';
 import { FactoryInterface } from './FactoryInterface';
 
 export interface ServiceFactoryType<T> extends Function { (sm?: ServiceManagerInterface): T; }

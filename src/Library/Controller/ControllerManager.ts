@@ -1,10 +1,8 @@
 import fs from 'fs';
 import path from 'path';
-import { AbstractPluginManager } from '../ServiceManager/AbstractPluginManager';
 import { ControllerManagerConfigType } from '../Config';
 import { ControllerType } from '.';
-import { ServiceManager } from '../ServiceManager';
-import { ControllerFactoryFactory } from './ControllerFactoryFactory';
+import { ServiceManager, AbstractPluginManager } from '../ServiceManager';
 import { AbstractActionController } from './AbstractActionController';
 
 export class ControllerManager extends AbstractPluginManager {
@@ -56,7 +54,7 @@ export class ControllerManager extends AbstractPluginManager {
   }
 
   public getController (controller: ControllerType): Object {
-    return this.get(ControllerManager.getControllerName(controller));
+    return this.get(controller);
   }
 
   protected registerControllers (controllers: Array<typeof AbstractActionController>): this {
@@ -66,7 +64,7 @@ export class ControllerManager extends AbstractPluginManager {
   }
 
   protected registerController (Controller: typeof AbstractActionController): this {
-    this.registerFactory(Controller, ControllerFactoryFactory(Controller));
+    this.registerInvokable(Controller, Controller);
 
     this.registerAlias(Controller.name, Controller);
 

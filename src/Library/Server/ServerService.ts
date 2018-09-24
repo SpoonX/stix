@@ -5,8 +5,6 @@ import { ServerConfigInterface } from '../Config';
 import { Application } from '../Application';
 import { dispatchMiddleware, requestMiddleware, routerMiddleware } from '../../middleware';
 
-export const DEFAULT_PORT: number = 1991;
-
 export class ServerService {
   private readonly server: Koa;
 
@@ -78,7 +76,7 @@ export class ServerService {
   }
 
   public start (): this {
-    this.server.listen(this.config.port || DEFAULT_PORT);
+    this.server.listen(this.config.port);
 
     return this;
   }

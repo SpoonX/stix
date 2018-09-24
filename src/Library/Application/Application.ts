@@ -5,7 +5,7 @@ import { ControllerManager } from '../Controller';
 import { ResponseService } from '../Response';
 import { ModuleManager, ModuleManagerFactory } from '../ModuleManager';
 import * as defaultConfig from '../../config';
-import createDebugLogger from '../../debug';
+import { createDebugLogger } from '../../debug';
 import {
   Config,
   ConfigType,

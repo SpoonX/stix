@@ -1,11 +1,9 @@
 import { ResponseService, SuccessfulResponse, ClientErrorResponse, ServerErrorResponse, RedirectionResponse } from '../Response';
+import { inject } from '../ServiceManager/decorators';
 
 export class AbstractActionController {
+  @inject(ResponseService)
   protected responseService: ResponseService;
-
-  constructor (responseService: ResponseService) {
-    this.responseService = responseService;
-  }
 
   protected getResponseService (): ResponseService {
     return this.responseService;

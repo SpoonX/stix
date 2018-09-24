@@ -1,9 +1,9 @@
 import { Config, ModuleManagerConfigInterface } from '../Config';
-import createDebugLogger from '../../debug';
 import { EventManager } from '../EventManager';
-import { ModuleManagerEvents } from '../EventManager/ModuleManagerEvents';
+import { ModuleManagerEvents } from './ModuleManagerEvents';
 import { ModuleClassInterface } from './ModuleClassInterface';
 import { Application } from '../Application';
+import { createDebugLogger } from '../../debug';
 
 const debug = createDebugLogger('modules');
 
@@ -40,10 +40,11 @@ export class ModuleManager {
 
     // Allow for a convenience onBootstrap method.
     if (typeof module.onBootstrap === 'function' && !eventManager.has(ModuleManagerEvents.OnBootstrap, module.onBootstrap)) {
+      debug(`Auto-attaching onBootstrap listener for ${ModuleClass.name}.`);
       eventManager.attachOnce(ModuleManagerEvents.OnBootstrap, module.onBootstrap);
     }
 
-    debug('Bootstrapped module ' + ModuleClass.name);
+    debug('Initialized module ' + ModuleClass.name);
 
     return this;
   }

@@ -8,4 +8,5 @@ export interface RegisteredRouteInterface {
   controller: typeof AbstractActionController;
   action: string;
   keys: Array<Key>;
+  route: string;
 }

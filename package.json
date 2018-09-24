@@ -66,6 +66,7 @@
     "koa": "^2.5.3",
     "koa-bodyparser": "^4.2.1",
     "path-to-regexp": "^2.4.0",
+    "reflect-metadata": "^0.1.12",
     "winston": "^3.1.0"
   },
   "license": "MIT"

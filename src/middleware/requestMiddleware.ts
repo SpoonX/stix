@@ -1,7 +1,7 @@
 import bytes from 'bytes';
 import { ContextInterface, Response } from '../Library';
 import { RequestMethods } from '../Library/Server';
-import createDebugLogger from '../debug';
+import { createDebugLogger } from '../debug';
 
 const debug = createDebugLogger('middleware:request');
 

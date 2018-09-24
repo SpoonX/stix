@@ -1,7 +1,12 @@
 import { ContextInterface, Application, InvalidActionResultError, Response } from '../Library';
+import { createDebugLogger } from '../debug';
+
+const debug = createDebugLogger('middleware:dispatch');
 
 export const dispatchMiddleware = (app: Application) => async function dispatch (ctx: ContextInterface, next: Function) {
   if (ctx.state.response) {
+    debug('Response found on context, calling next.');
+
     return next();
   }
 
@@ -9,8 +14,12 @@ export const dispatchMiddleware = (app: Application) => async function dispatch 
   const logger                                 = app.getLogger();
   const serverError                            = app.getResponseService().serverError();
 
+  debug(`Dispatching ${controllerName}.${action}.`);
+
   // Route found, controller found... but the action doesn't exist. Or isn't a method.
-  if (typeof controller[action] !== 'function') {
+  if (typeof (controller as any)[action] as any !== 'function') {
+    debug(`${controllerName}.${action} not found, calling next.`);
+
     logger.error(`Action "${action}" not found on controller "${controllerName}" for request path "${ctx.path}".`);
 
     ctx.state.response = serverError.notImplemented();
@@ -21,7 +30,7 @@ export const dispatchMiddleware = (app: Application) => async function dispatch 
   let response;
 
   try {
-    response = await controller[action](ctx);
+    response = await (controller as any)[action](ctx);
 
     if (!(response instanceof Response)) {
       throw new InvalidActionResultError([
@@ -37,6 +46,8 @@ export const dispatchMiddleware = (app: Application) => async function dispatch 
   }
 
   ctx.state.response = response;
+
+  debug(`Dispatched ${controllerName}.${action}, calling next.`);
 
   next();
 };
