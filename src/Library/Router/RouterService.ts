@@ -6,7 +6,7 @@ import { RouterConfigInterface } from '../Config';
 import { AbstractActionController } from '../Controller';
 
 export class RouterService {
-  private routes:Array<RegisteredRouteInterface> = [];
+  private routes: RegisteredRouteInterface[] = [];
 
   private config: RouterConfigInterface;
 
@@ -66,9 +66,13 @@ export class RouterService {
     const keys: Array<Key> = [];
     const regex: RegExp    = pathToRegexp(route, keys);
 
-    this.routes.push({ regex, controller, action, keys, method });
+    this.routes.push({ regex, controller, action, keys, method, route });
 
     return this;
+  }
+
+  public getRegisteredRoutes (): RegisteredRouteInterface[] {
+    return this.routes;
   }
 
   public buildParameters (from: Array<Key>, result: RegExpExecArray): {} {
