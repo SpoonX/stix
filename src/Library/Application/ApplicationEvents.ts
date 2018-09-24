@@ -1,3 +1,3 @@
 export enum ApplicationEvents {
-  Ready = 'Ready',
+  Ready = 'Application.Ready',
 }
