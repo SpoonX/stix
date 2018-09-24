@@ -1,6 +1,6 @@
 import { ContextInterface, ControllerManager, Application } from '../Library';
 import { RequestMethods } from '../Library/Server';
-import createDebugLogger from '../debug';
+import { createDebugLogger } from '../debug';
 
 const debug = createDebugLogger('middleware:router');
 
@@ -20,15 +20,17 @@ export const routerMiddleware = (app: Application) => async function router (ctx
 
   const { route, parameters } = match;
   const controllerName        = ControllerManager.getControllerName(route.controller);
-  const controller: any       = app.getControllerManager().get(controllerName);
+  const controller: any       = app.getControllerManager().get(route.controller);
 
-  ctx.params = parameters;
+  ctx.state.params = parameters;
 
   ctx.state.dispatch = {
     controllerName,
     controller,
     action: route.action,
   };
+
+  debug(`Route matched "${controllerName}.${route.action}()".`);
 
   return next();
 };

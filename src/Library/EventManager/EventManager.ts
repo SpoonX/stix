@@ -1,6 +1,9 @@
 import { EventEmitter } from 'events';
 import { Event } from './Event';
 import { SelfDestructingCallbackInterface } from './EventManagerTypes';
+import { createDebugLogger } from '../../debug';
+
+const debug = createDebugLogger('eventManager');
 
 export class EventManager extends EventEmitter {
   protected sharedEventManager: EventManager;
@@ -14,12 +17,18 @@ export class EventManager extends EventEmitter {
   }
 
   async trigger (eventName: string, target: any, payload?: any): Promise<boolean> {
+    debug(`Triggering event: ${eventName}.`);
+
     if (!this.hooks[eventName]) {
+      debug('No listeners attached.');
+
       return false;
     }
 
     const callbacks = this.hooks[eventName];
 
+    let triggered = 0;
+    let detached  = 0;
     let remaining = callbacks.length;
 
     for (let i = 0; i < remaining; i++) {
@@ -30,14 +39,19 @@ export class EventManager extends EventEmitter {
       if (callback._isSelfDestructingCallback) {
         callbacks.splice(i, 1);
 
+        detached++;
         remaining--;
         i--;
       }
+
+      triggered++;
     }
 
     if (!remaining) {
       delete this.hooks[eventName];
     }
+
+    debug(`Called ${triggered} listeners for: ${eventName} (detached ${detached} one-time listeners).`);
 
     return true;
   }
