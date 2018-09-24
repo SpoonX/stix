@@ -9,6 +9,7 @@
     "sourceMap": true,
     "target": "es6",
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "noImplicitAny": true,
     "moduleResolution": "node",
     "declarationDir": "./dist",
