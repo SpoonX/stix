@@ -2,6 +2,8 @@ import { ServiceManagerInterface } from './ServiceManagerInterface';
 import { ServicesMapType, FactoriesMapType, AliasesType, ServiceKeyType, ServiceFactoryType, SharedMapType, ServiceManagerConfigType } from './ServiceManagerConfigInterface';
 import { NotFoundError } from '../Error';
 import { Instantiable } from '../Core/Types';
+import { InjectedServiceFactory } from './InjectedServiceFactory';
+import { applyPatches } from './decorators';
 
 /**
  * @export
@@ -39,6 +41,9 @@ export class ServiceManager implements ServiceManagerInterface {
     if (forceTransient || !this.services.has(resolvedName)) {
       const service = this.factories.get(resolvedName)(this.creationContext) as T;
       const shared  = this.shared.has(resolvedName) ? this.shared.get(resolvedName) : this.sharedByDefault;
+
+      // Apply any patches registered with the @patch decorator
+      applyPatches(this.creationContext, service);
 
       // We just needed a new instance or we don't want our instances to be shared.. Return service.
       if (forceTransient || !shared) {
@@ -92,7 +97,7 @@ export class ServiceManager implements ServiceManagerInterface {
 
     if (config.invokables instanceof Map) {
       config.invokables.forEach((value: Instantiable<Object>, key: ServiceKeyType<Object>) => {
-        this.factories.set(key, () => new value);
+        this.registerInvokable(key, value);
       });
     }
 
@@ -105,6 +110,10 @@ export class ServiceManager implements ServiceManagerInterface {
     }
 
     return this;
+  }
+
+  public registerInvokable (key: ServiceKeyType<Object>, value: Instantiable<Object>) {
+    this.factories.set(key, InjectedServiceFactory(value));
   }
 
   public registerAliases (aliases: AliasesType): this {
