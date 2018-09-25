@@ -30,8 +30,8 @@ export class ControllerManager extends AbstractPluginManager {
 
   public loadDirectory (controllerDirectory: string) {
     const controllers: Array<typeof AbstractActionController> = fs.readdirSync(controllerDirectory)
-      .filter((fileName: string) => !!fileName.match(/^(?!(index)).+\.js$/))
-      .map((fileName: string) => fileName.replace(/\.js$/, ''))
+      .filter((fileName: string) => !!fileName.match(/^(?!(index)).*[^d]\.(js|ts)$/))
+      .map((fileName: string) => fileName.replace(/\.(js|ts)$/, ''))
       .map((controller: string) => {
         const Controller = require(path.resolve(controllerDirectory, controller));
 
