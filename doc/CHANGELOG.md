@@ -1,3 +1,13 @@
+<a name="3.0.1"></a>
+## [3.0.1](https://github.com/SpoonX/stix/compare/v3.0.0...v3.0.1) (2018-09-25)
+
+
+### Features
+
+* **project:** add support for running in ts-node ([d892ba7](https://github.com/SpoonX/stix/commit/d892ba7))
+
+
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/SpoonX/stix/compare/v2.0.0...v3.0.0) (2018-09-24)
 
