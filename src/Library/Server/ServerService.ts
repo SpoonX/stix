@@ -2,7 +2,7 @@ import Koa, { Middleware } from 'koa';
 import cors from '@koa/cors';
 import bodyParser from 'koa-bodyparser';
 import { ServerConfigInterface } from '../Config';
-import { Application } from '../Application';
+import { Application, ApplicationModes } from '../Application';
 import { dispatchMiddleware, requestMiddleware, routerMiddleware } from '../../middleware';
 
 export class ServerService {
@@ -15,7 +15,9 @@ export class ServerService {
   constructor (application: Application) {
     this.application = application;
 
-    this.server = new Koa();
+    if (application.getMode() === ApplicationModes.Server) {
+      this.server = new Koa();
+    }
   }
 
   public use (...middlewares: Array<Middleware>): this {
@@ -37,6 +39,10 @@ export class ServerService {
   }
 
   public updateMiddleware (at: number, remove: number, ...middlewares: Array<Middleware>): this {
+    // @todo these checks need to be different I think. It feels hacky. But maybe it's for the best. I'll think about it.
+    if (!this.server) {
+      return;
+    }
     const middleware  = this.server.middleware;
 
     if (at === -1) {
@@ -49,6 +55,9 @@ export class ServerService {
   }
 
   public indexOfMiddleware (middleware: string | Middleware) {
+    if (!this.server) {
+      return -1;
+    }
     if (typeof middleware === 'function') {
       return this.server.middleware.indexOf(middleware);
     }

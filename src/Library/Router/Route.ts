@@ -24,17 +24,4 @@ export class Route {
   public static delete (route: string, controller: string | { new() : Object }, action: string): {} {
     return Route.method(RequestMethods.Delete, route, controller, action);
   }
-
-  public static crud (route: string, controller: string | { new() : Object }): {} {
-    const idRoute = `${route}/:id`;
-
-    return [
-      Route.post(route, controller, 'create'),
-      Route.get(route, controller, 'find'),
-      Route.get(idRoute, controller, 'findOne'),
-      Route.put(idRoute, controller, 'overwrite'),
-      Route.patch(idRoute, controller, 'update'),
-      Route.delete(idRoute, controller, 'destroy'),
-    ];
-  }
 }

@@ -1,4 +1,5 @@
 export * from './Application';
+export * from './Cli';
 export * from './Config';
 export * from './Controller';
 export * from './Error';
