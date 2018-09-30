@@ -12,7 +12,7 @@
     "emitDecoratorMetadata": true,
     "noImplicitAny": true,
     "moduleResolution": "node",
-    "typeRoots" : ["./typings", "./node_modules"],
+    "typeRoots" : ["./typings", "./node_modules/@types"],
     "declarationDir": "./dist",
     "outDir": "./dist"
   }
