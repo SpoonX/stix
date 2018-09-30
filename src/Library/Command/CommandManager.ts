@@ -1,6 +1,5 @@
 import { CommandManagerConfigType } from './CommandManagerConfigType';
-import { ServiceManager } from '../ServiceManager';
-import { AbstractFileBasedPluginManager } from '../ServiceManager/AbstractFileBasedPluginManager';
+import { ServiceManager, AbstractFileBasedPluginManager } from '../ServiceManager';
 import { Instantiable } from '../Core';
 import { AbstractCommand } from './AbstractCommand';
 
