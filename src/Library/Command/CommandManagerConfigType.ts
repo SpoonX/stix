@@ -4,4 +4,3 @@ export type CommandManagerConfigType = Partial<{
   locations: string[];
   commands: ServiceManagerConfigType;
 }>;
-
