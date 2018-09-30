@@ -1,3 +1,13 @@
+<a name="4.1.2"></a>
+## [4.1.2](https://github.com/SpoonX/stix/compare/v4.1.1...v4.1.2) (2018-09-30)
+
+
+### Bug Fixes
+
+* **Middleware:** fix typings for middleware ([e19a606](https://github.com/SpoonX/stix/commit/e19a606))
+
+
+
 <a name="4.1.1"></a>
 ## [4.1.1](https://github.com/SpoonX/stix/compare/v4.1.0...v4.1.1) (2018-09-30)
 
