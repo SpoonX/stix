@@ -1,7 +1,7 @@
 import { ServiceManagerInterface } from './ServiceManagerInterface';
 import { ServicesMapType, FactoriesMapType, AliasesType, ServiceKeyType, ServiceFactoryType, SharedMapType, ServiceManagerConfigType } from './ServiceManagerConfigInterface';
 import { NotFoundError } from '../Error';
-import { Instantiable } from '../Core/Types';
+import { Instantiable } from '../Core';
 import { InjectedServiceFactory } from './InjectedServiceFactory';
 import { applyPatches } from './decorators';
 
