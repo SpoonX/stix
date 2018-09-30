@@ -1,27 +1,30 @@
 import Koa, { Middleware } from 'koa';
-import cors from '@koa/cors';
-import bodyParser from 'koa-bodyparser';
-import { ServerConfigInterface } from '../Config';
-import { Application, ApplicationModes } from '../Application';
-import { dispatchMiddleware, requestMiddleware, routerMiddleware } from '../../middleware';
+import { ApplicationModes } from '../Application';
+import { AbstractMiddleware, MiddlewareType } from '../Middleware';
+import { InvalidArgumentError } from '../Error';
 
 export class ServerService {
   private readonly server: Koa;
 
-  private readonly application: Application;
+  private readonly port: number;
 
-  private config: ServerConfigInterface;
+  private middleware: MiddlewareType[] = [];
 
-  constructor (application: Application) {
-    this.application = application;
+  constructor (mode: ApplicationModes, port: number, middleware: Array<Middleware | AbstractMiddleware>) {
+    this.port = port;
 
-    if (application.getMode() === ApplicationModes.Server) {
-      this.server = new Koa();
+    if (mode === ApplicationModes.Server) {
+      this.server     = new Koa();
+      this.middleware = this.server.middleware;
     }
+
+    this.use(...middleware);
   }
 
-  public use (...middlewares: Array<Middleware>): this {
-    middlewares.forEach(middleware => this.server.use(middleware));
+  public use (...middlewares: Array<Middleware | AbstractMiddleware>): this {
+    middlewares.forEach(middleware => {
+      this.middleware.push(middleware instanceof AbstractMiddleware ? middleware.asCallback() : middleware);
+    });
 
     return this;
   }
@@ -39,45 +42,31 @@ export class ServerService {
   }
 
   public updateMiddleware (at: number, remove: number, ...middlewares: Array<Middleware>): this {
-    // @todo these checks need to be different I think. It feels hacky. But maybe it's for the best. I'll think about it.
-    if (!this.server) {
-      return;
-    }
-    const middleware  = this.server.middleware;
-
-    if (at === -1) {
-      throw new Error();
-    }
-
-    middleware.splice(at, remove, ...middlewares);
+    this.middleware.splice(at === -1 ? 0 : at, remove, ...middlewares);
 
     return this;
   }
 
-  public indexOfMiddleware (middleware: string | Middleware) {
+  public indexOfMiddleware (middleware: string | typeof AbstractMiddleware | Function) {
     if (!this.server) {
       return -1;
     }
-    if (typeof middleware === 'function') {
-      return this.server.middleware.indexOf(middleware);
-    }
 
-    return this.server.middleware.findIndex(suspect => suspect.name === middleware);
-  }
+    return this.middleware.findIndex(suspect => {
+      if (typeof middleware === 'string') {
+        if (suspect._name) {
+          return suspect._name === middleware;
+        }
 
-  public async initialize (config: ServerConfigInterface): Promise<void> {
-    this.config = config;
+        return suspect.name === middleware;
+      }
 
-    if (config.cors.enabled) {
-      this.use(cors(config.cors.options));
-    }
+      if (suspect._fromClass) {
+        return middleware === suspect._fromClass;
+      }
 
-    this.use(
-      requestMiddleware(),
-      bodyParser(),
-      routerMiddleware(this.application),
-      dispatchMiddleware(this.application),
-    );
+      return suspect === middleware;
+    });
   }
 
   public getServer (): Koa {
@@ -85,7 +74,7 @@ export class ServerService {
   }
 
   public start (): this {
-    this.server.listen(this.config.port);
+    this.server.listen(this.port);
 
     return this;
   }
