@@ -1,6 +1,6 @@
 import Koa, { Middleware } from 'koa';
 import { ApplicationModes } from '../Application';
-import { AbstractMiddleware, MiddlewareType } from '../Middleware';
+import { AbstractMiddleware, MiddlewareLookupType, MiddlewareType, RegisteredMiddlewareType } from '../Middleware';
 import { InvalidArgumentError } from '../Error';
 
 export class ServerService {
@@ -8,7 +8,7 @@ export class ServerService {
 
   private readonly port: number;
 
-  private middleware: MiddlewareType[] = [];
+  private middleware: Array<MiddlewareType|RegisteredMiddlewareType> = [];
 
   constructor (mode: ApplicationModes, port: number, middleware: Array<Middleware | AbstractMiddleware>) {
     this.port = port;
@@ -23,36 +23,36 @@ export class ServerService {
 
   public use (...middlewares: Array<Middleware | AbstractMiddleware>): this {
     middlewares.forEach(middleware => {
-      this.middleware.push(middleware instanceof AbstractMiddleware ? middleware.asCallback() : middleware);
+      this.middleware.push(this.asCallback(middleware));
     });
 
     return this;
   }
 
-  public useBefore (middleware: string | Middleware, ...middlewares: Array<Middleware>): this {
+  public useBefore (middleware: MiddlewareLookupType, ...middlewares: Array<MiddlewareType>): this {
     return this.updateMiddleware(this.indexOfMiddleware(middleware), 0, ...middlewares);
   }
 
-  public useAfter (middleware: string | Middleware, ...middlewares: Array<Middleware>): this {
+  public useAfter (middleware: MiddlewareLookupType, ...middlewares: Array<MiddlewareType>): this {
     return this.updateMiddleware(this.indexOfMiddleware(middleware) + 1, 0, ...middlewares);
   }
 
-  public replace (middleware: string | Middleware, ...middlewares: Array<Middleware>): this {
+  public replace (middleware: MiddlewareLookupType, ...middlewares: Array<MiddlewareType>): this {
     return this.updateMiddleware(this.indexOfMiddleware(middleware), 1, ...middlewares);
   }
 
-  public updateMiddleware (at: number, remove: number, ...middlewares: Array<Middleware>): this {
-    this.middleware.splice(at === -1 ? 0 : at, remove, ...middlewares);
+  public updateMiddleware (at: number, remove: number, ...middlewares: Array<MiddlewareType>): this {
+    this.middleware.splice(at === -1 ? 0 : at, remove, ...middlewares.map(middleware => this.asCallback(middleware)));
 
     return this;
   }
 
-  public indexOfMiddleware (middleware: string | typeof AbstractMiddleware | Function) {
+  public indexOfMiddleware (middleware: MiddlewareLookupType) {
     if (!this.server) {
       return -1;
     }
 
-    return this.middleware.findIndex(suspect => {
+    return this.middleware.findIndex((suspect: RegisteredMiddlewareType) => {
       if (typeof middleware === 'string') {
         if (suspect._name) {
           return suspect._name === middleware;
@@ -77,5 +77,9 @@ export class ServerService {
     this.server.listen(this.port);
 
     return this;
+  }
+
+  private asCallback (middleware: MiddlewareType): Middleware {
+    return middleware instanceof AbstractMiddleware ? middleware.asCallback() : middleware;
   }
 }
