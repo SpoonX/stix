@@ -1,3 +1,22 @@
+<a name="4.0.0"></a>
+# [4.0.0](https://github.com/SpoonX/stix/compare/v3.0.1...v4.0.0) (2018-09-30)
+
+
+### Features
+
+* **Application:** allow application to be booted without starting ([47fb705](https://github.com/SpoonX/stix/commit/47fb705))
+* **Config:** deduping of arrays in patch ([7bbef0c](https://github.com/SpoonX/stix/commit/7bbef0c))
+* **Error:** add InvalidArgumentError ([14f9421](https://github.com/SpoonX/stix/commit/14f9421))
+* **Output:** add Output class for commands ([36526f4](https://github.com/SpoonX/stix/commit/36526f4))
+* **project:** add CLI support ([13fb231](https://github.com/SpoonX/stix/commit/13fb231))
+* **project:** add commands for CLI ([eb555ae](https://github.com/SpoonX/stix/commit/eb555ae))
+* **project:** add default command config with invokable command ([47a2c9a](https://github.com/SpoonX/stix/commit/47a2c9a))
+* **project:** add default help command for cli ([29bb39e](https://github.com/SpoonX/stix/commit/29bb39e))
+* **project:** add middleware classes ([c25d6e0](https://github.com/SpoonX/stix/commit/c25d6e0))
+* **ServiceManager:** and and implement file based plugin manager ([5e5d5ed](https://github.com/SpoonX/stix/commit/5e5d5ed))
+
+
+
 <a name="3.0.1"></a>
 ## [3.0.1](https://github.com/SpoonX/stix/compare/v3.0.0...v3.0.1) (2018-09-25)
 
