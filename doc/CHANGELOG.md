@@ -1,3 +1,13 @@
+<a name="4.0.1"></a>
+## [4.0.1](https://github.com/SpoonX/stix/compare/v4.0.0...v4.0.1) (2018-09-30)
+
+
+### Bug Fixes
+
+* **typings:** add [@types](https://github.com/types) to typeRoots ([7f8fd13](https://github.com/SpoonX/stix/commit/7f8fd13))
+
+
+
 <a name="4.0.0"></a>
 # [4.0.0](https://github.com/SpoonX/stix/compare/v3.0.1...v4.0.0) (2018-09-30)
 
