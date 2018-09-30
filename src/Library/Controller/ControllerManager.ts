@@ -1,6 +1,5 @@
 import { ControllerManagerConfigType } from '../Config';
-import { ServiceManager } from '../ServiceManager';
-import { AbstractFileBasedPluginManager } from '../ServiceManager/AbstractFileBasedPluginManager';
+import { ServiceManager, AbstractFileBasedPluginManager } from '../ServiceManager';
 import { Instantiable } from '../Core';
 
 export class ControllerManager extends AbstractFileBasedPluginManager {
