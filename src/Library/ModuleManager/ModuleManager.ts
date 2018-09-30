@@ -2,7 +2,7 @@ import { Config, ModuleManagerConfigInterface } from '../Config';
 import { EventManager } from '../EventManager';
 import { ModuleManagerEvents } from './ModuleManagerEvents';
 import { ModuleClassInterface } from './ModuleClassInterface';
-import { Application } from '../Application';
+import { Application, ApplicationModes, ApplicationConfigType } from '../Application';
 import { createDebugLogger } from '../../debug';
 
 const debug = createDebugLogger('modules');
@@ -27,11 +27,20 @@ export class ModuleManager {
   public async loadModule (ModuleClass: ModuleClassInterface): Promise<this> {
     debug('Loading module ' + ModuleClass.name);
 
+    const mode         = this.config.of<ApplicationConfigType>('application').mode;
     const eventManager = this.eventManager;
     const module       = new ModuleClass();
 
     if (typeof module.getConfig === 'function') {
-      this.config.merge(await module.getConfig());
+      this.config.merge(await module.getConfig(mode));
+    }
+
+    if (mode === ApplicationModes.Cli && typeof module.getCliConfig === 'function') {
+      this.config.merge(await module.getCliConfig());
+    }
+
+    if (mode === ApplicationModes.Server && typeof module.getServerConfig === 'function') {
+      this.config.merge(await module.getServerConfig());
     }
 
     if (typeof module.init === 'function') {

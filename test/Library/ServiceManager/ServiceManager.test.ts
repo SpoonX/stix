@@ -1,5 +1,4 @@
-import { ServiceManager } from '../../../src/Library/ServiceManager';
-import { ServiceFactoryType, ServiceKeyType, ServiceManagerConfigType } from '../../../src/Library/ServiceManager/ServiceManagerConfigInterface';
+import { ServiceManager, ServiceFactoryType, ServiceKeyType, ServiceManagerConfigType } from '../../../src/Library/ServiceManager';
 
 describe('ServiceManager', () => {
   class UselessService {

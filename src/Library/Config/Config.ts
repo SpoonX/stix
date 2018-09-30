@@ -46,7 +46,15 @@ export class Config {
   static patch (base: any, value: any) {
     if (typeof value === 'object' && typeof base === 'object') {
       if (Array.isArray(value) && Array.isArray(base)) {
-        return base.concat(value);
+        value.forEach(chunk => {
+
+          // Dedupe arrays on merge.
+          if (base.indexOf(chunk) === -1) {
+            base.push(chunk);
+          }
+        });
+
+        return base;
       }
 
       if (base.constructor === Object && value.constructor === Object) {

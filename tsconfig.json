@@ -7,11 +7,12 @@
     "esModuleInterop": true,
     "declaration": true,
     "sourceMap": true,
-    "target": "es6",
+    "target": "ES2017",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "noImplicitAny": true,
     "moduleResolution": "node",
+    "typeRoots" : ["./typings", "./node_modules"],
     "declarationDir": "./dist",
     "outDir": "./dist"
   }

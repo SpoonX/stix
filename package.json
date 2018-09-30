@@ -56,18 +56,27 @@
   "dependencies": {
     "@koa/cors": "^2.2.2",
     "@types/bytes": "^3.0.0",
+    "@types/chalk": "^2.2.0",
+    "@types/cli-table": "^0.3.0",
+    "@types/command-line-usage": "^5.0.1",
     "@types/debug": "^0.0.30",
     "@types/koa": "^2.0.46",
     "@types/koa-bodyparser": "^5.0.1",
     "@types/koa__cors": "^2.2.3",
     "@types/node": "^10.9.4",
+    "@types/prettyjson": "^0.0.28",
+    "chalk": "^2.4.1",
+    "cli-table": "^0.3.1",
+    "command-line-usage": "^5.0.5",
     "debug": "^4.0.1",
-    "homefront": "^3.0.0",
     "koa": "^2.5.3",
     "koa-bodyparser": "^4.2.1",
     "path-to-regexp": "^2.4.0",
+    "pretty-error": "^2.1.1",
+    "prettyjson": "^1.2.1",
     "reflect-metadata": "^0.1.12",
-    "winston": "^3.1.0"
+    "winston": "^3.1.0",
+    "yargs-parser": "^10.1.0"
   },
   "license": "MIT"
 }

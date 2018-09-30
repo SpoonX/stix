@@ -89,7 +89,7 @@ describe('Config', () => {
       expect(fbb.dontTouchMe).toBe(9);
       expect(fbb.downgradeMe).toBe(0);
       expect(fbb.replaceMe).toBe(false);
-      expect(fbb.fattenMeUp).toEqual([ 'Hamburgers', 'Milkshakes', 'Hamburgers', 'Fries', 'Scatty' ]);
+      expect(fbb.fattenMeUp).toEqual([ 'Hamburgers', 'Milkshakes', 'Fries', 'Scatty' ]);
       expect(config.of<any>('difficult').get(Config).get(Pbb)).toEqual({ edgy: 'as fuck' });
       expect(config.of<any>('difficult').get('hello')).toEqual({ a: { b: 'x', d: 'e', f: 'g' } });
       expect(config.of<any>('animals').cat).toBe(false);

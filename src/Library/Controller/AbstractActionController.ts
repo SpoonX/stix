@@ -1,5 +1,11 @@
-import { ResponseService, SuccessfulResponse, ClientErrorResponse, ServerErrorResponse, RedirectionResponse } from '../Response';
 import { inject } from '../ServiceManager/decorators';
+import {
+  ClientErrorResponse,
+  RedirectionResponse,
+  ResponseService,
+  ServerErrorResponse,
+  SuccessfulResponse,
+} from '../Response';
 
 export class AbstractActionController {
   @inject(ResponseService)

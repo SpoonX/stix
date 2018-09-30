@@ -39,7 +39,7 @@ export abstract class Response {
     return this.statusCode;
   }
 
-  public setBody (body: any): this {
+  protected setBody (body: any): this {
     this.ctx.body = body;
 
     return this;

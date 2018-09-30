@@ -1,45 +1,34 @@
-import winston from 'winston';
-import { RouterService } from '../Router';
 import { ServerService } from '../Server';
-import { ControllerManager } from '../Controller';
-import { ResponseService } from '../Response';
 import { ModuleManager, ModuleManagerFactory } from '../ModuleManager';
-import * as defaultConfig from '../../config';
-import { createDebugLogger } from '../../debug';
-import {
-  Config,
-  ConfigType,
-} from '../Config';
+import { Config, ConfigType } from '../Config';
 import { FactoryInterface, ServiceManager } from '../ServiceManager';
 import { EventManager, EventManagerFactory, SharedEventManager } from '../EventManager';
 import { ApplicationEvents } from './ApplicationEvents';
 import { Instantiable } from '../Core';
-import { LoggerService } from '../Logger/LoggerService';
+import { createDebugLogger } from '../../debug';
+import * as defaultConfig from '../../config';
+import { CliService } from '../Cli';
+import { ApplicationModes } from './ApplicationModes';
 
 const debug = createDebugLogger('application');
 
 export class Application {
+  private mode: ApplicationModes;
+
   private readonly config: Config;
 
   private readonly serviceManager: ServiceManager;
 
-  private logger: LoggerService;
-
-  private router : RouterService;
-
-  private server: ServerService;
-
-  private controllerManager: ControllerManager;
-
-  private responseService: ResponseService;
+  private readonly applicationConfigs: ConfigType[];
 
   private moduleManager: ModuleManager;
 
   private sharedEventManager: SharedEventManager;
 
-  public constructor (appConfig: ConfigType) {
-    this.config         = new Config(defaultConfig, appConfig);
-    this.serviceManager = new ServiceManager({
+  public constructor (...appConfigs: ConfigType[]) {
+    this.applicationConfigs = appConfigs;
+    this.config             = new Config(defaultConfig, ...this.applicationConfigs);
+    this.serviceManager     = new ServiceManager({
       aliases: { config: Config, sharedEventManager: SharedEventManager },
       invokables: new Map<Instantiable<Object>, Instantiable<Object>>([
         [ SharedEventManager, SharedEventManager ],
@@ -58,7 +47,15 @@ export class Application {
     });
   }
 
-  private async bootstrap (): Promise<this> {
+  public getMode (): ApplicationModes {
+    return this.mode;
+  }
+
+  public getServiceManager (): ServiceManager {
+    return this.serviceManager;
+  }
+
+  private async bootstrap (mode: ApplicationModes, loadOnly: boolean = false): Promise<this> {
     const config = this.config;
 
     // Make the module manager. Only one level is allowed to specify module configs..
@@ -67,20 +64,30 @@ export class Application {
     // Initialize module manager. Only calls getConfig()
     await this.moduleManager.loadModules(config.of('modules'));
 
+    // Now let's patch on the user config once more, to ensure dominance.
+    this.config.merge(...this.applicationConfigs);
+
     // Now that we have all the configs, register the services.
     this.serviceManager.configure(config.of('services'));
 
     // go forth and create all core services.
-    this.logger             = this.serviceManager.get(LoggerService);
-    this.router             = this.serviceManager.get(RouterService);
-    this.server             = this.serviceManager.get(ServerService);
-    this.responseService    = this.serviceManager.get(ResponseService);
-    this.controllerManager  = this.serviceManager.get(ControllerManager);
     this.sharedEventManager = this.serviceManager.get(SharedEventManager);
 
-    // Now it's our turn. Modules had their chance, now we get to register our default middleware.
-    await this.server.initialize(config.of('server'));
+    if (mode === ApplicationModes.Cli) {
+      await this.bootstrapCli();
+    } else {
+      this.bootstrapServer();
+    }
 
+    // Don't start the application. We're probably in CLI mode.
+    if (loadOnly) {
+      return this;
+    }
+
+    return await this.start();
+  }
+
+  public async start (): Promise<this> {
     // Cool cool. Bootstrap the modules, because they can now get all the things.
     await this.moduleManager.bootstrap();
 
@@ -90,50 +97,30 @@ export class Application {
     return this;
   }
 
-  public getLogger (): LoggerService {
-    return this.logger;
+  private async bootstrapCli () {
+    const cliService = await this.serviceManager.get(CliService);
+
+    this.sharedEventManager.attachOnce(ApplicationEvents.Ready, () => {
+      cliService.execute(process.argv.slice(2));
+    });
   }
 
-  public getRouter (): RouterService {
-    return this.router;
+  private bootstrapServer () {
+    const serverService = this.serviceManager.get(ServerService);
+
+    this.sharedEventManager.attachOnce(ApplicationEvents.Ready, () => {
+      serverService.start();
+    });
   }
 
-  public getServer (): ServerService {
-    return this.server;
-  }
+  public async launch (mode: ApplicationModes = ApplicationModes.Server, loadOnly: boolean = false): Promise<this> {
+    this.config.merge({ application: { mode } });
 
-  public getControllerManager (): ControllerManager {
-    return this.controllerManager;
-  }
+    debug(`Launching in ${mode} mode`);
 
-  public getModuleManager (): ModuleManager {
-    return this.moduleManager;
-  }
+    await this.bootstrap(mode, loadOnly);
 
-  public getResponseService (): ResponseService {
-    return this.responseService;
-  }
-
-  public getServiceManager (): ServiceManager {
-    return this.serviceManager;
-  }
-
-  public getConfigOf<T> (section: string): T {
-    return this.config.of<T>(section);
-  }
-
-  public getConfig (): Config {
-    return this.config;
-  }
-
-  public async launch (): Promise<this> {
-    debug('Launching server');
-
-    await this.bootstrap();
-
-    this.server.start();
-
-    debug('Server ready');
+    debug('Application ready.');
 
     return this;
   }
