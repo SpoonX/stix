@@ -6,9 +6,6 @@
     "type": "git",
     "url": "git+https://github.com/SpoonX/stix.git"
   },
-  "bin": {
-    "stix-cli": "./dist/cli.js"
-  },
   "author": "RWOverdijk <r.w.overdijk@gmail.com>",
   "main": "./dist/index.js",
   "files": [
