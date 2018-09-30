@@ -1,4 +1,4 @@
-export * from './Response';
+export * from './AbstractResponseHelper';
 export * from './Response';
 export * from './ResponseTypes';
 export * from './ServerErrorResponse';
