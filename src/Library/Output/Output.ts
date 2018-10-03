@@ -80,7 +80,7 @@ export class Output {
 
     table.push(...data);
 
-    this.addData(table);
+    this.addData(table.toString());
 
     return this;
   }
@@ -90,7 +90,7 @@ export class Output {
 
     table.push(...data);
 
-    this.addData(table);
+    this.addData(table.toString());
 
     return this;
   }
