@@ -116,6 +116,8 @@ export class Application {
   public async launch (mode: ApplicationModes = ApplicationModes.Server, loadOnly: boolean = false): Promise<this> {
     this.config.merge({ application: { mode } });
 
+    this.mode = mode;
+
     debug(`Launching in ${mode} mode`);
 
     await this.bootstrap(mode, loadOnly);
