@@ -1,3 +1,13 @@
+<a name="4.1.5"></a>
+## [4.1.5](https://github.com/SpoonX/stix/compare/v4.1.4...v4.1.5) (2018-10-04)
+
+
+### Bug Fixes
+
+* **CliService:** properly parse arguments ([cfc7aaa](https://github.com/SpoonX/stix/commit/cfc7aaa))
+
+
+
 <a name="4.1.4"></a>
 ## [4.1.4](https://github.com/SpoonX/stix/compare/v4.1.3...v4.1.4) (2018-10-04)
 
