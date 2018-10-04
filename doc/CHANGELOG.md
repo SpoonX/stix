@@ -1,3 +1,22 @@
+<a name="4.1.3"></a>
+## [4.1.3](https://github.com/SpoonX/stix/compare/v4.1.2...v4.1.3) (2018-10-04)
+
+
+### Bug Fixes
+
+* **AbstractFileBasedPluginManager:** fix regex to also match files ending in a d ([b62028c](https://github.com/SpoonX/stix/commit/b62028c))
+* **Application:** actually set application mode ([cf5cc97](https://github.com/SpoonX/stix/commit/cf5cc97))
+* **CommandManager:** fix typings for getCommand ([a32ae6d](https://github.com/SpoonX/stix/commit/a32ae6d))
+* **Output:** call toString on all tables for output ([dc7a509](https://github.com/SpoonX/stix/commit/dc7a509))
+* **Output:** call toString on table for output ([65866ea](https://github.com/SpoonX/stix/commit/65866ea))
+
+
+### Features
+
+* **CliService:** validate and pass options ([33fafcc](https://github.com/SpoonX/stix/commit/33fafcc))
+
+
+
 <a name="4.1.2"></a>
 ## [4.1.2](https://github.com/SpoonX/stix/compare/v4.1.1...v4.1.2) (2018-09-30)
 
