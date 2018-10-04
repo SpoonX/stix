@@ -1,5 +1,4 @@
-import { FactoryInterface } from '../ServiceManager/FactoryInterface';
-import { ServiceManager } from '../ServiceManager';
+import { FactoryInterface, ServiceManager } from '../ServiceManager';
 import { ControllerManager } from './ControllerManager';
 import { Config, ControllerManagerConfigType } from '../Config';
 

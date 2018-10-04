@@ -31,7 +31,7 @@ export class AbstractFileBasedPluginManager extends AbstractPluginManager {
 
   public loadDirectory (pluginDirectory: string) {
     const plugins: Array<Instantiable<Object>> = fs.readdirSync(pluginDirectory)
-      .filter((fileName: string) => !!fileName.match(/^(?!(index)).*[^d]\.(js|ts)$/))
+      .filter((fileName: string) => !!fileName.match(/^(?!.*index\.(js|ts)$).*[^.]d\.(js|ts)$/))
       .map((fileName: string) => fileName.replace(/\.(js|ts)$/, ''))
       .map((plugin: string) => {
         const Plugin = require(path.resolve(pluginDirectory, plugin));

@@ -58,15 +58,47 @@ export class CliService {
     const commandInstance = this.commandManager.getCommand(command.Command) as { [key: string]: Function };
 
     try {
-      const args = this.validate(parsed._, command.args);
-      const alias = this.collectAliases(command);
-
-      await commandInstance[command.action]({ params: args, options: parser(argv, { alias }) }, output);
+      await commandInstance[command.action]({ params: this.validate(argv, command) }, output);
     } catch (error) {
       output.error(error);
     }
 
     return output;
+  }
+
+  private validate (argv: string[], command: CliCommandType) {
+    const alias = this.collectAliases(command);
+    const parsed = parser(argv, { alias });
+
+    const args: { [key: string]: string } = {};
+
+    if (!command.config || !command.config.options) {
+      return args;
+    }
+
+    command.args.forEach(({ required, name }: { name: string, required: boolean }, index: number) => {
+      if (required && !parsed._[name]) {
+        throw `Missing required argument "${name}".`;
+      }
+
+      if (parsed._[index]) {
+        args[name] = parsed._[index];
+      }
+    });
+
+    if (!command.config || !command.config.options) {
+      return args;
+    }
+
+    Object.keys(command.config.options).forEach(option => {
+      if (command.config.options[option].required && !parsed[option]) {
+        throw `Missing required option "${option}".`;
+      }
+
+      args[option] = parsed[option];
+    });
+
+    return args;
   }
 
   private collectAliases ({ config }: CliCommandType) {
@@ -81,22 +113,6 @@ export class CliService {
 
       return aliases;
     }, {});
-  }
-
-  private validate (provided: { [key: string]: string }, requested: { name: string, required: boolean }[]) {
-    const args: { [key: string]: string } = {};
-
-    requested.forEach(({ required, name }: { name: string, required: boolean }, index: number) => {
-      if (required && !provided[name]) {
-        throw new Error(`Missing required argument "${name}".`);
-      }
-
-      if (provided[index]) {
-        args[name] = provided[index];
-      }
-    });
-
-    return args;
   }
 
   public getPrograms (): { [program: string]: ProcessedProgramType } {

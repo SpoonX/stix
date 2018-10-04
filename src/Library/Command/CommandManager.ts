@@ -8,7 +8,7 @@ export class CommandManager extends AbstractFileBasedPluginManager {
     super(creationContext, config.locations, config.commands);
   }
 
-  public getCommand (Command: AbstractCommand): Object {
+  public getCommand (Command: typeof AbstractCommand): AbstractCommand {
     return this.getPlugin(Command as Instantiable<Object>);
   }
 }
