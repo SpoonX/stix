@@ -51,6 +51,11 @@ export class CliService {
     const command = this.commands[token] as CliCommandType;
     const output = new Output();
 
+    // Remove the token so we're left with the arguments.
+    if (token === argv[0]) {
+      argv.splice(0, 1);
+    }
+
     if (!command) {
       return output.error(`Unknown command "${token}".`);
     }
@@ -72,19 +77,17 @@ export class CliService {
 
     const args: { [key: string]: string } = {};
 
-    if (!command.config || !command.config.options) {
-      return args;
+    if (Array.isArray(command.args)) {
+      command.args.forEach(({ required, name }: { name: string, required: boolean }, index: number) => {
+        if (required && !parsed._[index]) {
+          throw `Missing required argument "${name}".`;
+        }
+
+        if (parsed._[index]) {
+          args[name] = parsed._[index];
+        }
+      });
     }
-
-    command.args.forEach(({ required, name }: { name: string, required: boolean }, index: number) => {
-      if (required && !parsed._[name]) {
-        throw `Missing required argument "${name}".`;
-      }
-
-      if (parsed._[index]) {
-        args[name] = parsed._[index];
-      }
-    });
 
     if (!command.config || !command.config.options) {
       return args;
