@@ -1,3 +1,13 @@
+<a name="4.1.4"></a>
+## [4.1.4](https://github.com/SpoonX/stix/compare/v4.1.3...v4.1.4) (2018-10-04)
+
+
+### Bug Fixes
+
+* **AbstractFileBasedPluginManager:** fix regex to also match files not ending in a d ([8299d65](https://github.com/SpoonX/stix/commit/8299d65))
+
+
+
 <a name="4.1.3"></a>
 ## [4.1.3](https://github.com/SpoonX/stix/compare/v4.1.2...v4.1.3) (2018-10-04)
 
