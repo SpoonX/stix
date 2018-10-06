@@ -1,3 +1,13 @@
+<a name="4.1.6"></a>
+## [4.1.6](https://github.com/SpoonX/stix/compare/v4.1.5...v4.1.6) (2018-10-06)
+
+
+### Features
+
+* **Output:** add multiple pieces of data at once ([2163981](https://github.com/SpoonX/stix/commit/2163981))
+
+
+
 <a name="4.1.5"></a>
 ## [4.1.5](https://github.com/SpoonX/stix/compare/v4.1.4...v4.1.5) (2018-10-04)
 
