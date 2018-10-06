@@ -63,7 +63,7 @@ export class CliService {
     const commandInstance = this.commandManager.getCommand(command.Command) as { [key: string]: Function };
 
     try {
-      await commandInstance[command.action]({ params: this.validate(argv, command) }, output);
+      await commandInstance[command.action](output, this.validate(argv, command));
     } catch (error) {
       output.error(error);
     }

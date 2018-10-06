@@ -9,7 +9,7 @@ export class HelpCommand extends AbstractCommand {
   @inject(CliService)
   private cliService: CliService;
 
-  output ({ params, options }: any, output: Output) {
+  output (output: Output, params: { command?: string }) {
     const config   = this.cliService.getConfig();
     const programs = this.cliService.getPrograms();
 
