@@ -1,6 +1,7 @@
 import Table from 'cli-table';
 import prettyjson from 'prettyjson';
 import PrettyError from 'pretty-error';
+import chalk from 'chalk';
 
 export class Output {
   private exitCode: number = 0;
@@ -49,14 +50,24 @@ export class Output {
     return this;
   }
 
-  public addData (data: any): this {
-    if (data.constructor === Object) {
-      return this.addData(prettyjson.render(data));
-    }
+  public addData (...data: any[]): this {
+    data.forEach(item => {
+      if (item === undefined) {
+        return;
+      }
 
-    this.data.push(data);
+      if (item.constructor === Object) {
+        return this.addData(prettyjson.render(item));
+      }
+
+      this.data.push(item);
+    });
 
     return this;
+  }
+
+  public success (message: string, data?: any) {
+    this.addData(chalk`\n  {green {bold Success!}} ${message}\n`, data);
   }
 
   public resetData (): this {
