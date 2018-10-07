@@ -1,12 +1,15 @@
+import send, { SendOptions } from 'koa-send';
+import path from 'path';
 import { HttpStatusCodes } from '../Server';
 import { ContextInterface } from '../Interface';
+import { ResponseStrategies } from './ResponseStrategies';
 
-export abstract class Response {
-  public abstract apply (): void;
-
+export class Response {
   protected ctx: ContextInterface;
 
   protected headers: { [header: string]: string | Array<string> } = {};
+
+  protected strategy: string = ResponseStrategies.Json;
 
   protected statusCode: HttpStatusCodes;
 
@@ -23,14 +26,46 @@ export abstract class Response {
     this.statusCode = statusCode;
   }
 
-  public patchContext (ctx: ContextInterface) {
+  public async patchContext (ctx: ContextInterface) {
     this.ctx = ctx;
 
-    this.setStatusCode(this.statusCode).applyHeaders().apply();
+    // Basic stuff
+    this.applyStatusCode(this.statusCode).applyHeaders();
+
+    if (this.strategy === ResponseStrategies.File) {
+      await this.sendFile();
+    } else if (this.strategy === ResponseStrategies.Html) {
+      this.applyBody(this.data);
+    } else {
+      // Default to json.
+      this.applyBody(this.format());
+    }
+
+    // Allow hooks.
+    if (typeof this.apply === 'function') {
+      await this.apply();
+    }
+  }
+
+  protected async sendFile () {
+    const { location, options = {} } = this.meta;
+    const { dir, base } = path.parse(location);
+
+    if (options.root) {
+      return await send(this.ctx, location, options);
+    }
+
+    await send(this.ctx, base, Object.assign({ root: dir }, options));
+  }
+
+  public applyStatusCode (statusCode: HttpStatusCodes): this {
+    this.ctx.status = statusCode;
+
+    return this;
   }
 
   public setStatusCode (statusCode: HttpStatusCodes): this {
-    this.ctx.status = statusCode;
+    this.statusCode = statusCode;
 
     return this;
   }
@@ -39,8 +74,10 @@ export abstract class Response {
     return this.statusCode;
   }
 
-  protected setBody (body: any): this {
-    this.ctx.body = body;
+  protected applyBody (body: any): this {
+    if (body) {
+      this.ctx.body = body;
+    }
 
     return this;
   }
@@ -77,6 +114,29 @@ export abstract class Response {
     Reflect.ownKeys(this.headers).forEach((header: string) => this.ctx.set(header, this.headers[header]));
 
     return this;
+  }
+
+  public file (location: string, options?: SendOptions) {
+    this.strategy = ResponseStrategies.File;
+    this.meta = { location, options };
+  }
+
+  public json (data: any) {
+    this.strategy = ResponseStrategies.Json;
+    this.data = data;
+  }
+
+  public html (data: any) {
+    this.strategy = ResponseStrategies.Html;
+    this.data = data;
+  }
+
+  protected apply (): void {
+    return;
+  }
+
+  protected format (): any {
+    return;
   }
 }
 
