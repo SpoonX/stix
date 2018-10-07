@@ -35,6 +35,8 @@ export class Response {
     if (this.strategy === ResponseStrategies.File) {
       await this.sendFile();
     } else if (this.strategy === ResponseStrategies.Html) {
+      ctx.type = 'html';
+
       this.applyBody(this.data);
     } else {
       // Default to json.
@@ -116,19 +118,25 @@ export class Response {
     return this;
   }
 
-  public file (location: string, options?: SendOptions) {
+  public file (location: string, options?: SendOptions): this {
     this.strategy = ResponseStrategies.File;
     this.meta = { location, options };
+
+    return this;
   }
 
-  public json (data: any) {
+  public json (data: any): this {
     this.strategy = ResponseStrategies.Json;
     this.data = data;
+
+    return this;
   }
 
-  public html (data: any) {
+  public html (data: any): this {
     this.strategy = ResponseStrategies.Html;
     this.data = data;
+
+    return this;
   }
 
   protected apply (): void {
