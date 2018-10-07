@@ -1,17 +1,19 @@
 import Koa, { Middleware } from 'koa';
+import url from 'url';
+import https from 'https';
 import { ApplicationModes } from '../Application';
 import { AbstractMiddleware, MiddlewareLookupType, MiddlewareType, RegisteredMiddlewareType } from '../Middleware';
-import { InvalidArgumentError } from '../Error';
+import { ServerConfigInterface } from '../Config';
 
 export class ServerService {
   private readonly server: Koa;
 
-  private readonly port: number;
+  private readonly config: ServerConfigInterface;
 
   private middleware: Array<MiddlewareType|RegisteredMiddlewareType> = [];
 
-  constructor (mode: ApplicationModes, port: number, middleware: Array<Middleware | AbstractMiddleware>) {
-    this.port = port;
+  constructor (mode: ApplicationModes, config: ServerConfigInterface, middleware: Array<Middleware | AbstractMiddleware>) {
+    this.config = config;
 
     if (mode === ApplicationModes.Server) {
       this.server     = new Koa();
@@ -73,8 +75,18 @@ export class ServerService {
     return this.server;
   }
 
+  public getURL () {
+    const { port, ssl, hostname } = this.config;
+
+    return url.format(`http${ssl ? 's' : ''}://${hostname}:${port == 80 ? '' : port}`);
+  }
+
   public start (): this {
-    this.server.listen(this.port);
+    if (this.config.ssl) {
+      https.createServer(this.config.ssl, this.server.callback()).listen(this.config.port);
+    } else {
+      this.server.listen(this.config.port);
+    }
 
     return this;
   }

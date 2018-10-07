@@ -19,5 +19,5 @@ export const ServerServiceFactory = (sm: ServiceManagerInterface) => {
     middleware.unshift(cors(config.cors.options));
   }
 
-  return new ServerService(sm.get(Application).getMode(), config.port, middleware);
+  return new ServerService(sm.get(Application).getMode(), config, middleware);
 };

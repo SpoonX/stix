@@ -14,7 +14,7 @@ export class RequestMiddleware extends AbstractMiddleware {
 
     const response: Response = ctx.state.response;
 
-    response.patchContext(ctx);
+    await response.patchContext(ctx);
 
     // Head doesn't want a body. Hehe. I get why it's called head now.
     // Raphaela seems to think that's not why they call it head. I'm filing for divorce.
