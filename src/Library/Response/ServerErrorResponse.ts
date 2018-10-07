@@ -50,7 +50,7 @@ export class ServerErrorResponse extends Response {
     return this.create(HttpStatusCodes.NetworkAuthenticationRequired, message, data, meta);
   }
 
-  apply () {
+  format () {
     const body: { message?: string, data?: any } = {};
 
     if (this.message) {
@@ -61,6 +61,6 @@ export class ServerErrorResponse extends Response {
       body.data = this.data;
     }
 
-    this.setBody(body);
+    return body;
   }
 }
