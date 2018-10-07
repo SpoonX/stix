@@ -17,8 +17,4 @@ export class InformationalResponse extends Response {
   public static processing (meta?: any): InformationalResponse {
     return this.create(HttpStatusCodes.Processing, meta);
   }
-
-  apply () {
-    // Noop. LGTM!
-  }
 }
