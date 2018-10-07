@@ -46,7 +46,12 @@ export class SuccessfulResponse extends Response {
     return this.create(HttpStatusCodes.ImUsed, data, meta);
   }
 
-  apply () {
-    this.setBody(this.data);
+  format () {
+    // Like it says, no content.
+    if (this.statusCode === HttpStatusCodes.NoContent) {
+      return;
+    }
+
+    return this.data;
   }
 }
