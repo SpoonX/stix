@@ -1,3 +1,21 @@
+<a name="4.2.0"></a>
+# [4.2.0](https://github.com/SpoonX/stix/compare/v4.1.7...v4.2.0) (2018-10-07)
+
+
+### Bug Fixes
+
+* **Response:** set response type for html ([445c008](https://github.com/SpoonX/stix/commit/445c008))
+
+
+### Features
+
+* **Application:** add environment helper method ([ba59e3e](https://github.com/SpoonX/stix/commit/ba59e3e))
+* **RequestMiddleware:** make patchContext async ([1f1c4a2](https://github.com/SpoonX/stix/commit/1f1c4a2))
+* **Response:** add file and html responses ([682c7af](https://github.com/SpoonX/stix/commit/682c7af))
+* **ServerService:** add SSL support and url helper ([ce80b56](https://github.com/SpoonX/stix/commit/ce80b56))
+
+
+
 <a name="4.1.7"></a>
 ## [4.1.7](https://github.com/SpoonX/stix/compare/v4.1.6...v4.1.7) (2018-10-06)
 
