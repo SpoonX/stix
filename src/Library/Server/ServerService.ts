@@ -1,8 +1,8 @@
 import Koa, { Middleware } from 'koa';
 import url from 'url';
+import https from 'https';
 import { ApplicationModes } from '../Application';
 import { AbstractMiddleware, MiddlewareLookupType, MiddlewareType, RegisteredMiddlewareType } from '../Middleware';
-import https, { ServerOptions } from 'https';
 import { ServerConfigInterface } from '../Config';
 
 export class ServerService {
