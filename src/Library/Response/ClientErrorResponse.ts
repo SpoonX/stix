@@ -118,7 +118,7 @@ export class ClientErrorResponse extends Response {
     return this.create(HttpStatusCodes.UnavailableForLegalReasons, message, data, meta);
   }
 
-  apply () {
-    this.setBody({ message: this.message, data: this.data });
+  format () {
+    return { message: this.message, data: this.data };
   }
 }
