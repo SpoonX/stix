@@ -15,6 +15,8 @@ const debug = createDebugLogger('application');
 export class Application {
   private mode: ApplicationModes;
 
+  private readonly environment: string = process.env.NODE_ENV || 'development';
+
   private readonly config: Config;
 
   private readonly serviceManager: ServiceManager;
@@ -111,6 +113,14 @@ export class Application {
     this.sharedEventManager.attachOnce(ApplicationEvents.Ready, () => {
       serverService.start();
     });
+  }
+
+  public getEnvironment (): string {
+    return this.environment;
+  }
+
+  public isProduction (): boolean {
+    return this.getEnvironment() === 'production';
   }
 
   public async launch (mode: ApplicationModes = ApplicationModes.Server, loadOnly: boolean = false): Promise<this> {
