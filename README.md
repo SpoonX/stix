@@ -4,6 +4,18 @@
 
 A module-based, TypeScript-first Node.js® framework.
 
+## Usage
+
+Installation instructions, usage, documentation, a tutorial and a video will follow shortly. For now:
+
+- [stix-cli](https://github.com/SpoonX/stix-cli): the cli for your project and its own commands. Includes autocomplete.
+- [stix-gates](https://github.com/SpoonX/stix-gates): security and enrichments for your endpoints.
+- [stix-wetland](https://github.com/SpoonX/stix-wetland): a stix module for Wetland ORM.
+- [stix-swagger](https://github.com/SpoonX/stix-swagger): automatically generate swagger docs based on your stix app.
+- [stix-skeleton](https://github.com/SpoonX/stix-skeleton): the official stix skeleton, also used by `stix init`.
+- [stix-generator](https://github.com/SpoonX/stix-generator): code generators for stix projects.
+- [tape-roller](https://github.com/SpoonX/tape-roller): makes manipulating code projects easier with helpers for packages, files and git.
+
 ## License
 
 MIT.
