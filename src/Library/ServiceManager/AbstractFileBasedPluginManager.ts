@@ -3,6 +3,9 @@ import path from 'path';
 import { FileBasedPluginType, ServiceManagerConfigType } from '.';
 import { ServiceManager, AbstractPluginManager } from '../ServiceManager';
 import { Instantiable } from '../Core';
+import { createDebugLogger } from '../../debug';
+
+const debug = createDebugLogger('pluginManager');
 
 export class AbstractFileBasedPluginManager extends AbstractPluginManager {
   constructor (creationContext: ServiceManager, locations: string[], config: ServiceManagerConfigType) {
@@ -30,6 +33,24 @@ export class AbstractFileBasedPluginManager extends AbstractPluginManager {
   }
 
   public loadDirectory (pluginDirectory: string) {
+    let stat;
+
+    try {
+      stat = fs.statSync(pluginDirectory);
+    } catch (error) {
+      if (error.code === 'ENOENT') {
+        debug(`Directory "${pluginDirectory}" not found for plugin manager.`);
+
+        return;
+      }
+
+      throw error;
+    }
+
+    if (!stat.isDirectory()) {
+      throw new Error('Plugin location must be a directory.');
+    }
+
     const plugins: Array<Instantiable<Object>> = fs.readdirSync(pluginDirectory)
       .filter((fileName: string) => !!fileName.match(/^(?!.*index\.(js|ts)$).*(^.?|\.[^d]|[^.]d|[^.][^d])\.(js|ts)$/))
       .map((fileName: string) => fileName.replace(/\.(js|ts)$/, ''))
