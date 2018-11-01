@@ -3,8 +3,10 @@ import { ServiceManager, AbstractFileBasedPluginManager } from '../ServiceManage
 import { Instantiable } from '../Core';
 
 export class ControllerManager extends AbstractFileBasedPluginManager {
-  constructor (creationContext: ServiceManager, config: ControllerManagerConfigType) {
-    super(creationContext, config.locations, config.controllers);
+  constructor (creationContext: ServiceManager, config: ControllerManagerConfigType = {}) {
+    const { locations, controllers } = config;
+
+    super(creationContext, locations, controllers);
   }
 
   public getController (Controller: Instantiable<Object>): Object {
