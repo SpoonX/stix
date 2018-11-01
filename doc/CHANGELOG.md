@@ -1,3 +1,21 @@
+<a name="4.2.1"></a>
+## [4.2.1](https://github.com/SpoonX/stix/compare/v4.2.0...v4.2.1) (2018-11-01)
+
+
+### Bug Fixes
+
+* **AbstractFileBasedPluginManager:** graceful continue when no plugins are found ([66e4cfc](https://github.com/SpoonX/stix/commit/66e4cfc))
+* **CommandManager:** gracefully fail when there are no plugins ([85f59a0](https://github.com/SpoonX/stix/commit/85f59a0))
+* **ControllerManager:** gracefully fail when there are no plugins ([601f9b3](https://github.com/SpoonX/stix/commit/601f9b3))
+* **ModuleManager:** gracefully fail when there are no modules ([460be4c](https://github.com/SpoonX/stix/commit/460be4c))
+
+
+### Features
+
+* **project:** add logo ([bc7e112](https://github.com/SpoonX/stix/commit/bc7e112))
+
+
+
 <a name="4.2.0"></a>
 # [4.2.0](https://github.com/SpoonX/stix/compare/v4.1.7...v4.2.0) (2018-10-07)
 
