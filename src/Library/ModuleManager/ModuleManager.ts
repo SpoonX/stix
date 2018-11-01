@@ -69,6 +69,12 @@ export class ModuleManager {
   public async loadModules (config: ModuleManagerConfigInterface): Promise<this> {
     debug('Loading modules');
 
+    if (!config) {
+      debug('No modules registered.');
+
+      return;
+    }
+
     for(let i = 0; i < config.length; i++) {
       await this.loadModule(config[i]);
     }
