@@ -1,10 +1,12 @@
-# ![Stix](./stix.svg)
-
-[![Slack Status](https://spoonx-slack.herokuapp.com/badge.svg)](https://spoonx-slack.herokuapp.com)
-
-A module-based, TypeScript-first Node.js® framework.
 
 <div align="center">
+  
+  # ![Stix](./stix.svg)
+
+  [![Slack Status](https://spoonx-slack.herokuapp.com/badge.svg)](https://spoonx-slack.herokuapp.com)
+
+  A module-based, TypeScript-first Node.js® framework.
+
   <a href="https://www.youtube.com/watch?v=qcXWH_aBMkU"><img src="https://img.youtube.com/vi/qcXWH_aBMkU/0.jpg" alt="stix quickstart video"></a>
 </div>
 
