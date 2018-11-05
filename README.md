@@ -4,6 +4,10 @@
 
 A module-based, TypeScript-first Node.js® framework.
 
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=qcXWH_aBMkU"><img src="https://img.youtube.com/vi/qcXWH_aBMkU/0.jpg" alt="stix quickstart video"></a>
+</div>
+
 ## Usage
 
 Installation instructions, usage, documentation, a tutorial and a video will follow shortly. For now:
