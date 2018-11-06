@@ -1,3 +1,8 @@
+<a name="4.2.3"></a>
+## [4.2.3](https://github.com/SpoonX/stix/compare/v4.2.2...v4.2.3) (2018-11-06)
+
+
+
 <a name="4.2.2"></a>
 ## [4.2.2](https://github.com/SpoonX/stix/compare/v4.2.1...v4.2.2) (2018-11-06)
 
