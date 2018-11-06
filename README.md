@@ -14,7 +14,7 @@
 
 ## Usage
 
-Installation instructions, usage, documentation, a tutorial and a video will follow shortly. For now:
+All repositories in a nice list. I like lists.
 
 - [stix-cli](https://github.com/SpoonX/stix-cli): the cli for your project and its own commands. Includes autocomplete.
 - [stix-gates](https://github.com/SpoonX/stix-gates): security and enrichments for your endpoints.
