@@ -1,3 +1,13 @@
+<a name="4.2.2"></a>
+## [4.2.2](https://github.com/SpoonX/stix/compare/v4.2.1...v4.2.2) (2018-11-06)
+
+
+### Bug Fixes
+
+* **Route:** fix types for route ([4efa06d](https://github.com/SpoonX/stix/commit/4efa06d))
+
+
+
 <a name="4.2.1"></a>
 ## [4.2.1](https://github.com/SpoonX/stix/compare/v4.2.0...v4.2.1) (2018-11-01)
 
