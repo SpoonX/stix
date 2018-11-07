@@ -9,7 +9,7 @@
 
   <a href="https://www.youtube.com/watch?v=qcXWH_aBMkU"><img src="https://img.youtube.com/vi/qcXWH_aBMkU/0.jpg" alt="stix quickstart video"></a>
   
-  [Documentation](https://stix.netlify.com/docs/next/the-basics/about-stix) - [Website](https://stix.netlify.com)
+  [Documentation](https://stixjs.io/docs/the-basics/about-stix) - [Website](https://stixjs.io/)
 </div>
 
 ## Usage
