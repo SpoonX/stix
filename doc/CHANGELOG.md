@@ -1,3 +1,13 @@
+<a name="4.3.0"></a>
+# [4.3.0](https://github.com/SpoonX/stix/compare/v4.2.3...v4.3.0) (2018-11-20)
+
+
+### Features
+
+* **decorators:** add config decorator ([ea61c09](https://github.com/SpoonX/stix/commit/ea61c09))
+
+
+
 <a name="4.2.3"></a>
 ## [4.2.3](https://github.com/SpoonX/stix/compare/v4.2.2...v4.2.3) (2018-11-06)
 
