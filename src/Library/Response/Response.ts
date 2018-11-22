@@ -26,6 +26,16 @@ export class Response {
     this.statusCode = statusCode;
   }
 
+  public setData (data: any): this {
+    this.data = data;
+
+    return this;
+  }
+
+  public getData (): any {
+    return this.data;
+  }
+
   public async patchContext (ctx: ContextInterface) {
     this.ctx = ctx;
 

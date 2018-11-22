@@ -1,3 +1,4 @@
+import clone from 'clone';
 import { ServerService } from '../Server';
 import { ModuleManager, ModuleManagerFactory } from '../ModuleManager';
 import { Config, ConfigType } from '../Config';
@@ -29,7 +30,7 @@ export class Application {
 
   public constructor (...appConfigs: ConfigType[]) {
     this.applicationConfigs = appConfigs;
-    this.config             = new Config(defaultConfig, ...this.applicationConfigs);
+    this.config             = new Config(defaultConfig, ...clone(this.applicationConfigs));
     this.serviceManager     = new ServiceManager({
       aliases: { config: Config, sharedEventManager: SharedEventManager },
       invokables: new Map<Instantiable<Object>, Instantiable<Object>>([
