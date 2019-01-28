@@ -1,3 +1,12 @@
+## [4.3.2](https://github.com/SpoonX/stix/compare/v4.3.1...v4.3.2) (2019-01-28)
+
+
+### Bug Fixes
+
+* **Config:** gracefully handle incorrect config merges ([ca7d4e2](https://github.com/SpoonX/stix/commit/ca7d4e2))
+
+
+
 <a name="4.3.1"></a>
 ## [4.3.1](https://github.com/SpoonX/stix/compare/v4.3.0...v4.3.1) (2018-11-22)
 
