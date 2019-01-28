@@ -44,6 +44,11 @@ export class Config {
   }
 
   static patch (base: any, value: any) {
+    // Do not merge if either side is empty.
+    if (!value || !base) {
+      return value;
+    }
+
     if (typeof value === 'object' && typeof base === 'object') {
       if (Array.isArray(value) && Array.isArray(base)) {
         value.forEach(chunk => {
