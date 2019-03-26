@@ -44,7 +44,7 @@ export class ModuleManager {
     }
 
     if (typeof module.init === 'function') {
-      module.init(this);
+      await module.init(this);
     }
 
     // Allow for a convenience onBootstrap method.

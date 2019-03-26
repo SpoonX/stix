@@ -6,4 +6,5 @@ export interface RouteInterface {
   route: string;
   controller: typeof AbstractActionController;
   action: string;
+  meta?: any;
 }
