@@ -1,3 +1,7 @@
+# [4.4.0](https://github.com/SpoonX/stix/compare/v4.3.2...v4.4.0) (2019-03-26)
+
+
+
 ## [4.3.2](https://github.com/SpoonX/stix/compare/v4.3.1...v4.3.2) (2019-01-28)
 
 
