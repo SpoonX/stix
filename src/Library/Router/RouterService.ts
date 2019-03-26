@@ -66,6 +66,9 @@ export class RouterService {
     const keys: Array<Key> = [];
     const regex: RegExp    = pathToRegexp(route, keys);
 
+    // Remove route if previously registered.
+    this.routes = this.routes.filter(target => target.route !== route && target.method !== method);
+
     this.routes.push({ regex, controller, action, keys, method, route });
 
     return this;
