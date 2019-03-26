@@ -1,3 +1,18 @@
+# [4.5.0](https://github.com/SpoonX/stix/compare/v4.4.0...v4.5.0) (2019-03-26)
+
+
+### Bug Fixes
+
+* **Router:** prevent duplicate route listeners ([ebc8a48](https://github.com/SpoonX/stix/commit/ebc8a48))
+
+
+### Features
+
+* **ControllerManager:** add debug logging for controller manager ([547d39d](https://github.com/SpoonX/stix/commit/547d39d))
+* **ModuleManager:** await init on modules ([833b4d9](https://github.com/SpoonX/stix/commit/833b4d9))
+
+
+
 # [4.4.0](https://github.com/SpoonX/stix/compare/v4.3.2...v4.4.0) (2019-03-26)
 
 
