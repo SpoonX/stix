@@ -1,3 +1,12 @@
+## [4.5.1](https://github.com/SpoonX/stix/compare/v4.5.0...v4.5.1) (2019-03-30)
+
+
+### Bug Fixes
+
+* **Router:** only remove existing route ([4598ba2](https://github.com/SpoonX/stix/commit/4598ba2))
+
+
+
 # [4.5.0](https://github.com/SpoonX/stix/compare/v4.4.0...v4.5.0) (2019-03-26)
 
 
