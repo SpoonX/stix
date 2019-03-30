@@ -67,7 +67,11 @@ export class RouterService {
     const regex: RegExp    = pathToRegexp(route, keys);
 
     // Remove route if previously registered.
-    this.routes = this.routes.filter(target => target.route !== route && target.method !== method);
+    const routeIndex = this.routes.findIndex(target => target.route === route && target.method === method);
+
+    if (routeIndex > -1) {
+      this.routes.splice(routeIndex, 1);
+    }
 
     this.routes.push({ regex, controller, action, keys, method, route });
 
