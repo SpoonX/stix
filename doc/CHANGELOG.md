@@ -1,3 +1,12 @@
+## [4.5.2](https://github.com/SpoonX/stix/compare/v4.5.1...v4.5.2) (2019-03-30)
+
+
+### Bug Fixes
+
+* **inject:** apply proper metadata hierarchy to prevent unneeded DI ([1647992](https://github.com/SpoonX/stix/commit/1647992))
+
+
+
 ## [4.5.1](https://github.com/SpoonX/stix/compare/v4.5.0...v4.5.1) (2019-03-30)
 
 
