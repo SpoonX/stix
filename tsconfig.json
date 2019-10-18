@@ -4,15 +4,15 @@
   ],
   "compilerOptions": {
     "module": "commonjs",
-    "esModuleInterop": true,
+    "noEmit": true,
     "declaration": true,
     "sourceMap": true,
     "target": "ES2017",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
     "noImplicitAny": true,
     "moduleResolution": "node",
-    "typeRoots" : ["./typings", "./node_modules/@types"],
     "declarationDir": "./dist",
     "outDir": "./dist"
   }
